@@ -30,7 +30,7 @@ def assr_batch_grid(filename):
     # params['ThalIEscaleFactor'] = [0.595, 0.59, 0.585]
 
     # params['cochlearThalInput', 'weightECore'] = [0.9, 0.8, 0.7]
-    params['L6IEGain'] = [1.25, 1.0]
+    params['L6IEGain'] = [1.75, 2.0, 2.5]
     params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
 
     #### GROUPED PARAMS ####
