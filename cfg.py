@@ -163,6 +163,7 @@ cfg.EIGain = 1.5
 cfg.IEGain = 1.5
 cfg.IIGain = 1.0
 
+
 ## E/I->E/I layer weights (L1-3, L4, L5, L6)
 cfg.EELayerGain = {'1': 1.0, '2': 1.0, '3': 1.0, '4': 1.0, '5A': 1.0, '5B': 1.0, '6': 1.0}
 cfg.EILayerGain = {'1': 1.0, '2': 1.0, '3': 1.0, '4': 1.0, '5A': 1.0, '5B': 1.0, '6': 1.0}
@@ -197,7 +198,7 @@ cfg.intraThalamicGain = 1.0
 cfg.corticoThalamicGain = 1.0
 cfg.CTGainThalI = 1.0
 
-cfg.ThalIEscaleFactor = 0.6
+cfg.ThalIEscaleFactor = 0.7
 
 # these params control IC -> Thalamic Core
 cfg.ICThalweightECore = 0.8350476447841453
@@ -230,7 +231,7 @@ cfg.thalL4E = 1.9540886147587417
 cfg.thalL4VIP = 1.0
 cfg.thalL4NGF = 1.0
 
-cfg.thalIIScale = 1.0
+cfg.thalIIScale = 1.5
 
 cfg.thalL1NGF = 1.0
 cfg.ENGF1 = 1.0
