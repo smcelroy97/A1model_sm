@@ -162,7 +162,7 @@ cfg.EEGain = 0.75
 cfg.EIGain = 1.5
 cfg.IEGain = 1.5
 cfg.IIGain = 1.0
-
+cfg.L6IEGain = 1.5
 
 ## E/I->E/I layer weights (L1-3, L4, L5, L6)
 cfg.EELayerGain = {'1': 1.0, '2': 1.0, '3': 1.0, '4': 1.0, '5A': 1.0, '5B': 1.0, '6': 1.0}

@@ -380,15 +380,15 @@ def wireCortex():
     ## I -> E
     if cfg.IEGain > 0.0:
         if connDataSource['I->E/I'] == 'Allen_custom':
-            IEGain = cfg.IEGain
             for pre in Ipops:
                 for preType in Itypes:
                     if preType in pre:  # only create rule if celltype matches pop
                         for post in Epops:
-                            # if post == 'CT6' or 'IT6':
-                            #     IEGain = cfg.L6IEGain
                             for l in layerGainLabels:  # used to tune each layer group independently
                                 prob = '%f * exp(-dist_2D/%f)' % (pmat[pre][post], lmat[pre][post])
+                                IEGain = cfg.IEGain
+                                if l == '6':
+                                    IEGain = cfg.L6IEGain
                                 if 'SOM' in pre:
                                     synMech = SOMESynMech
                                 elif 'PV' in pre:
@@ -397,6 +397,7 @@ def wireCortex():
                                     synMech = VIPSynMech
                                 elif 'NGF' in pre:
                                     synMech = NGFESynMech
+                                print(str(IEGain) + '     ' + post)
                                 netParams.connParams['IE_' + pre + '_' + preType + '_' + post + '_' + l] = {
                                     'preConds': {'pop': pre},
                                     'postConds': {'pop': post, 'ynorm': layer[l]},
