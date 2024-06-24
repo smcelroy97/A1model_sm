@@ -90,7 +90,7 @@ cfg.saveCellConns = False
 # ------------------------------------------------------------------------------
 
 # cfg.analysis['plotTraces'] = {'include': [('TC', i) for i in range(40)], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
-cfg.analysis['plotTraces'] = {'include': ['TC', 'IRE'],  'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
+# cfg.analysis['plotTraces'] = {'include': ['TC', 'IRE'],  'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
 cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (25,25), 'plotRates': False,
                               'markerSize': 1}      	## Plot a raster
 # cfg.analysis['plotConn'] = {'includePost': ['IRE', 'IREM'], 'saveFig': True}
@@ -162,7 +162,7 @@ cfg.EEGain = 0.75
 cfg.EIGain = 1.5
 cfg.IEGain = 1.5
 cfg.IIGain = 1.0
-cfg.L6IEGain = 1.5
+cfg.L6IEGain = 1
 
 ## E/I->E/I layer weights (L1-3, L4, L5, L6)
 cfg.EELayerGain = {'1': 1.0, '2': 1.0, '3': 1.0, '4': 1.0, '5A': 1.0, '5B': 1.0, '6': 1.0}

@@ -137,8 +137,8 @@ if __name__ == '__main__':
     #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'L6IETune0621A'
+    b.batchLabel = 'L6IETune0624'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_slurm_Expanse')
+    setRunCfg(b, 'hpc_sge')
     b.run() # run batch
