@@ -275,9 +275,9 @@ def setRunCfg(b, type='hpc_sge'):
 if __name__ == '__main__':
 
     # b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
-    b = evol('data/v34_batch25/trial_2142/trial_2142_cfg.json')
+    b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'ctxIIGain0624'
+    b.batchLabel = 'EvoTest0625'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_slurm_Expanse')
