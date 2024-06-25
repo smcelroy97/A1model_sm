@@ -318,6 +318,8 @@ def wireCortex():
                     if pre == 'ITS4' or pre == 'ITP4':
                         if post == 'IT3':
                             scaleFactor = cfg.L4L3E  # 25
+                        if post == 'ITP4' or post == 'ITS4':
+                            scaleFactor = cfg.L4L4E
 
                     netParams.connParams['EE_' + pre + '_' + post + '_' + l] = {
                         'preConds': {'pop': pre},
