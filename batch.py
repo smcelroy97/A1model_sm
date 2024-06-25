@@ -93,6 +93,145 @@ def assr_batch_grid(filename):
     return b
 
 
+# ----------------------------------------------------------------------------------------------
+# Evol
+# ----------------------------------------------------------------------------------------------
+def evolRates():
+    # --------------------------------------------------------
+    # parameters
+    params = specs.ODict()
+
+    if not filename:
+        filename = 'data/v34_batch25/trial_2142/trial_2142_cfg.json'
+
+    # from prev
+    import json
+    with open(filename, 'rb') as f:
+        cfgLoad = json.load(f)['simConfig']
+    cfgLoad2 = cfgLoad
+
+    params['EILayerGain', '3'] = [0.9, 1.6]
+    params['IELayerGain', '3'] = [0.9, 1.6]
+    params['IILayerGain', '3'] = [0.9, 1.6]
+    params['EILayerGain', '4'] = [0.9, 1.6]
+    params['IELayerGain', '4'] = [0.9, 1.6]
+    params['IILayerGain', '4'] = [0.9, 1.6]
+    params['EELayerGain', '6'] = [0.9, 1.6]
+    params['EILayerGain', '6'] = [0.9, 1.6]
+    params['IELayerGain', '6'] = [0.9, 1.6]
+
+    groupedParams = []
+
+    # --------------------------------------------------------
+    # initial config
+
+    initCfg = {} # set default options from prev sim
+
+    initCfg['duration'] = 6000 #11500
+    initCfg['printPopAvgRates'] = [3000, 6000]
+    initCfg['scaleDensity'] = 1.0
+    initCfg['recordStep'] = 0.05
+
+    # SET SEEDS FOR CONN AND STIM
+    initCfg[('seeds', 'conn')] = 0
+
+    ### OPTION TO RECORD EEG / DIPOLE ###
+    initCfg['recordDipole'] = True
+    initCfg['saveCellSecs'] = False
+    initCfg['saveCellConns'] = False
+
+
+    # from prev - best of 50% cell density
+    updateParams = ['EEGain', 'EIGain', 'IEGain', 'IIGain',
+                    ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'), ('EICellTypeGain', 'VIP'),
+                    ('EICellTypeGain', 'NGF'), ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'),
+                    ('IECellTypeGain', 'VIP'), ('IECellTypeGain', 'NGF'), ('EILayerGain', '1'),
+                    ('IILayerGain', '1'),('EELayerGain', '2'), ('EILayerGain', '2'),
+                    ('IELayerGain', '2'), ('IILayerGain', '2'),('EELayerGain', '3'),
+                    ('EELayerGain', '4'),  ('EELayerGain', '5A'), ('EILayerGain', '5A'),
+                    ('IELayerGain', '5A'), ('IILayerGain', '5A'),('EELayerGain', '5B'),
+                    ('EILayerGain', '5B'), ('IELayerGain', '5B'), ('IILayerGain', '5B'),
+                    ('IILayerGain', '6')]
+
+    for p in updateParams:
+        if isinstance(p, tuple):
+            initCfg.update({p: cfgLoad[p[0]][p[1]]})
+        else:
+            initCfg.update({p: cfgLoad[p]})
+
+    # good thal params for 100% cell density
+    updateParams2 = ['thalamoCorticalGain', 'intraThalamicGain', 'EbkgThalamicGain', 'IbkgThalamicGain', 'wmat']
+
+    for p in updateParams2:
+        if isinstance(p, tuple):
+            initCfg.update({p: cfgLoad2[p[0]][p[1]]})
+        else:
+            initCfg.update({p: cfgLoad2[p]})
+    # --------------------------------------------------------
+    # fitness function
+    fitnessFuncArgs = {}
+    pops = {}
+
+    ## Exc pops
+    Epops = ['IT2', 'IT3', 'ITP4', 'ITS4', 'IT5A', 'CT5A', 'IT5B', 'CT5B', 'PT5B', 'IT6', 'CT6']
+
+    Etune = {'target': 5, 'width': 5, 'min': 0.5}
+    for pop in Epops:
+        pops[pop] = Etune
+
+    ## Inh pops
+    Ipops = ['NGF1',  # L1
+             'PV2', 'SOM2', 'VIP2', 'NGF2',  # L2
+             'PV3', 'SOM3', 'VIP3', 'NGF3',  # L3
+             'PV4', 'SOM4', 'VIP4', 'NGF4',  # L4
+             'PV5A', 'SOM5A', 'VIP5A', 'NGF5A',  # L5A
+             'PV5B', 'SOM5B', 'VIP5B', 'NGF5B',  # L5B
+             'PV6', 'SOM6', 'VIP6', 'NGF6']  # L6
+
+    Itune = {'target': 10, 'width': 15, 'min': 0.25}
+    for pop in Ipops:
+        pops[pop] = Itune
+
+    fitnessFuncArgs['pops'] = pops
+    fitnessFuncArgs['maxFitness'] = 1000
+
+    def fitnessFunc(simData, **kwargs):
+        import numpy as np
+        pops = kwargs['pops']
+        maxFitness = kwargs['maxFitness']
+        popFitness = [min(np.exp(abs(v['target'] - simData['popRates'][k]) / v['width']), maxFitness)
+                      if simData['popRates'][k] > v['min'] else maxFitness for k, v in pops.items()]
+        fitness = np.mean(popFitness)
+
+        popInfo = '; '.join(
+            ['%s rate=%.1f fit=%1.f' % (p, simData['popRates'][p], popFitness[i]) for i, p in enumerate(pops)])
+        print('  ' + popInfo)
+        return fitness
+
+    # from IPython import embed; embed()
+
+    b = Batch(params=params, groupedParams=groupedParams, initCfg=initCfg)
+    b.method = 'evol'
+
+    # Set evol alg configuration
+    b.evolCfg = {
+        'evolAlgorithm': 'custom',
+        'fitnessFunc': fitnessFunc,  # fitness expression (should read simData)
+        'fitnessFuncArgs': fitnessFuncArgs,
+        'pop_size': 2,
+        'num_elites': 2,
+        'mutation_rate': 0.5,
+        'crossover': 0.5,
+        'maximize': False,  # maximize fitness function?
+        'max_generations': 3,
+        'time_sleep': 5 * 300,  # 5min wait this time before checking again if sim is completed (for each generation)
+        'maxiter_wait': 10 * 64,  # (5h20) max number of times to check if sim is completed (for each generation)
+        'defaultFitness': 1000,  # set fitness value in case simulation time is over
+        'scancelUser': 'ext_romanbaravalle_gmail_com'
+    }
+
+    return b
+
 
 # ----------------------------------------------------------------------------------------------
 # Run configurations
@@ -135,12 +274,11 @@ def setRunCfg(b, type='hpc_sge'):
 
 if __name__ == '__main__':
 
-
-    #b = assr_batch('data/v34_batch25/trial_2142/trial_2142_cfg.json')
-    b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
+    # b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
+    b = evol('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
     b.batchLabel = 'ctxIIGain0624'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_sge')
+    setRunCfg(b, 'hpc_slurm_Expanse')
     b.run() # run batch
