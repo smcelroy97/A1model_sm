@@ -28,9 +28,9 @@ def assr_batch_grid(filename):
 
     # #### SET weights####
     # params['ThalIEscaleFactor'] = [0.595, 0.59, 0.585]
-
+    params['EEGain'] = [0.725, 0.7, 0.65]
     # params['cochlearThalInput', 'weightECore'] = [0.9, 0.8, 0.7]
-    params['L4L4E'] = [0.75, 0.5, 0.25]
+    # params['L4L4E'] = [0.75, 0.5, 0.25]
     # params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
 
     #### GROUPED PARAMS ####
@@ -55,7 +55,7 @@ def assr_batch_grid(filename):
     initCfg['saveCellConns'] = False
 
     # from prev - best of 50% cell density
-    updateParams = ['EEGain', 'EIGain', 'IEGain', 'IIGain',
+    updateParams = ['EIGain', 'IEGain', 'IIGain',
                     ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'), ('EICellTypeGain', 'VIP'),
                     ('EICellTypeGain', 'NGF'),
                     ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'),
@@ -275,7 +275,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'L4L4ETune0625'
+    b.batchLabel = 'EEGainTune0626'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
