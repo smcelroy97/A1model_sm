@@ -55,7 +55,7 @@ def assr_batch_grid(filename):
     initCfg['saveCellConns'] = False
 
     # from prev - best of 50% cell density
-    updateParams = ['EIGain', 'IEGain', 'IIGain',
+    updateParams = ['EEGain', 'EIGain', 'IEGain', 'IIGain',
                     ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'), ('EICellTypeGain', 'VIP'),
                     ('EICellTypeGain', 'NGF'),
                     ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'),
@@ -108,15 +108,10 @@ def evolRates(filename):
         cfgLoad = json.load(f)['simConfig']
     cfgLoad2 = cfgLoad
 
-    params['EILayerGain', '3'] = [0.9, 1.6]
-    params['IELayerGain', '3'] = [0.9, 1.6]
-    params['IILayerGain', '3'] = [0.9, 1.6]
-    params['EILayerGain', '4'] = [0.9, 1.6]
-    params['IELayerGain', '4'] = [0.9, 1.6]
-    params['IILayerGain', '4'] = [0.9, 1.6]
-    params['EELayerGain', '6'] = [0.9, 1.6]
-    params['EILayerGain', '6'] = [0.9, 1.6]
-    params['IELayerGain', '6'] = [0.9, 1.6]
+    params['EEGain'] = [0.5, 1.5]
+    params['EIGain'] = [0.9, 1.75]
+    params['IEGain'] = [0.9, 1.75]
+    params['IIGain'] = [0.5, 1.5]
 
     groupedParams = []
 
@@ -140,16 +135,17 @@ def evolRates(filename):
 
 
     # from prev - best of 50% cell density
-    updateParams = ['EEGain', 'EIGain', 'IEGain', 'IIGain',
-                    ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'), ('EICellTypeGain', 'VIP'),
-                    ('EICellTypeGain', 'NGF'), ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'),
-                    ('IECellTypeGain', 'VIP'), ('IECellTypeGain', 'NGF'), ('EILayerGain', '1'),
-                    ('IILayerGain', '1'),('EELayerGain', '2'), ('EILayerGain', '2'),
-                    ('IELayerGain', '2'), ('IILayerGain', '2'),('EELayerGain', '3'),
-                    ('EELayerGain', '4'),  ('EELayerGain', '5A'), ('EILayerGain', '5A'),
-                    ('IELayerGain', '5A'), ('IILayerGain', '5A'),('EELayerGain', '5B'),
-                    ('EILayerGain', '5B'), ('IELayerGain', '5B'), ('IILayerGain', '5B'),
-                    ('IILayerGain', '6')]
+    updateParams = [('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'), ('EICellTypeGain', 'VIP'),
+                    ('EICellTypeGain', 'NGF'),
+                    ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'),
+                    ('IECellTypeGain', 'NGF'),
+                    ('EILayerGain', '1'), ('IILayerGain', '1'),
+                    ('EELayerGain', '2'), ('EILayerGain', '2'),  ('IELayerGain', '2'), ('IILayerGain', '2'),
+                    ('EELayerGain', '3'), ('EILayerGain', '3'), ('IELayerGain', '3'), ('IILayerGain', '3'),
+                    ('EELayerGain', '4'), ('EILayerGain', '4'), ('IELayerGain', '4'), ('IILayerGain', '4'),
+                    ('EELayerGain', '5A'), ('EILayerGain', '5A'), ('IELayerGain', '5A'), ('IILayerGain', '5A'),
+                    ('EELayerGain', '5B'), ('EILayerGain', '5B'), ('IELayerGain', '5B'), ('IILayerGain', '5B'),
+                    ('EELayerGain', '6'), ('EILayerGain', '6'), ('IELayerGain', '6'), ('IILayerGain', '6')]
 
     for p in updateParams:
         if isinstance(p, tuple):
@@ -216,16 +212,16 @@ def evolRates(filename):
         'evolAlgorithm': 'custom',
         'fitnessFunc': fitnessFunc,  # fitness expression (should read simData)
         'fitnessFuncArgs': fitnessFuncArgs,
-        'pop_size': 2,
+        'pop_size': 10,
         'num_elites': 2,
         'mutation_rate': 0.5,
         'crossover': 0.5,
         'maximize': False,  # maximize fitness function?
-        'max_generations': 3,
+        'max_generations': 50,
         'time_sleep': 5 * 300,  # 5min wait this time before checking again if sim is completed (for each generation)
         'maxiter_wait': 10 * 64,  # (5h20) max number of times to check if sim is completed (for each generation)
         'defaultFitness': 1000,  # set fitness value in case simulation time is over
-        'scancelUser': 'ext_romanbaravalle_gmail_com'
+        'scancelUser': 'ext_scottmcelroy54_gmail_com'
     }
 
     return b
@@ -272,11 +268,11 @@ def setRunCfg(b, type='hpc_sge'):
 
 if __name__ == '__main__':
 
-    b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
+    b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'EEGainTune0626'
+    b.batchLabel = 'EvolCtxGainTune0626'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_sge')
+    setRunCfg(b, 'hpc_slurm_Expanse')
     b.run() # run batch
