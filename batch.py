@@ -239,7 +239,7 @@ def setRunCfg(b, type='hpc_sge'):
                     'vmem': '256G', # or however much memory you need
                     'walltime': '2:00:00', # make 2 hours or something
                     'skip': True}
-    elif type == 'hpc_slurm_Expanse':
+        elif type == 'hpc_slurm_Expanse':
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
                     'partition': 'compute',
@@ -250,7 +250,7 @@ def setRunCfg(b, type='hpc_sge'):
                     'folder': '/home/smcelroy/A1model_sm/',
                     'script': 'init.py',
                     'mpiCommand': 'mpirun',
-                    'custom': '\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
+                    'custom': '#SBATCH --constraint="lustre"\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
                     'skip': True}
 
     elif type=='mpi_direct':
