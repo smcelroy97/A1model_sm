@@ -251,7 +251,7 @@ def setRunCfg(b, type='hpc_sge'):
                     'script': 'init.py',
                     'mpiCommand': 'mpirun',
                     'custom': '#SBATCH --constraint="lustre"\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
-                    'skip': True
+                    'skip': True,
                     'skipCustom': '_data.pkl'}
 
     elif type=='mpi_direct':
