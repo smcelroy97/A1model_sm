@@ -27,11 +27,11 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    # params['ThalIEscaleFactor'] = [0.595, 0.59, 0.585]
-    params['EEGain'] = [0.725, 0.7, 0.65]
-    # params['cochlearThalInput', 'weightECore'] = [0.9, 0.8, 0.7]
-    # params['L4L4E'] = [0.75, 0.5, 0.25]
-    # params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
+    params['EEGain'] = [1.18702850562324]
+    params['EIGain'] = [1.6313576020869256]
+    params['IEGain'] = [1.716277020224909]
+    params['IIGain'] = [1.4102431748127964]
+    params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -55,7 +55,7 @@ def assr_batch_grid(filename):
     initCfg['saveCellConns'] = False
 
     # from prev - best of 50% cell density
-    updateParams = ['EEGain', 'EIGain', 'IEGain', 'IIGain',
+    updateParams = [#'EEGain', 'EIGain', 'IEGain', 'IIGain',
                     ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'), ('EICellTypeGain', 'VIP'),
                     ('EICellTypeGain', 'NGF'),
                     ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'),
@@ -239,10 +239,10 @@ def setRunCfg(b, type='hpc_sge'):
                     'vmem': '256G', # or however much memory you need
                     'walltime': '2:00:00', # make 2 hours or something
                     'skip': True}
-        elif type == 'hpc_slurm_Expanse':
+    elif type == 'hpc_slurm_Expanse':
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
-                    'partition': 'compute',
+                    'partition': 'shared',
                     'walltime': '1:40:00',
                     'nodes': 1,
                     'coresPerNode': 64,
@@ -251,7 +251,8 @@ def setRunCfg(b, type='hpc_sge'):
                     'script': 'init.py',
                     'mpiCommand': 'mpirun',
                     'custom': '#SBATCH --constraint="lustre"\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
-                    'skip': True}
+                    'skip': True
+                    'skipCustom': '_data.pkl'}
 
     elif type=='mpi_direct':
         b.runCfg = {'type': 'mpi_direct',
@@ -268,11 +269,11 @@ def setRunCfg(b, type='hpc_sge'):
 
 if __name__ == '__main__':
 
-    b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
+    b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'EvolCtxGainTune0626'
+    b.batchLabel = 'CandTest0708'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_slurm_Expanse')
+    setRunCfg(b, 'hpc_sge')
     b.run() # run batch
