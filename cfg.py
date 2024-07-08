@@ -94,7 +94,7 @@ cfg.saveCellConns = False
 cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (25,25), 'plotRates': False,
                               'markerSize': 1}      	## Plot a raster
 # cfg.analysis['plotConn'] = {'includePost': ['IRE', 'IREM'], 'saveFig': True}
-cfg.analysis['plotSpikeStats'] = {'stats': ['ISICV'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'showFig': 0, 'saveFig': 1}
+cfg.analysis['plotSpikeStats'] = {'stats': ['ISICV'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'showFig': 0, 'saveFig': True}
 
 # cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4), 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
 # cfg.analysis['plotDipole'] = {'saveFig': True}
@@ -162,7 +162,7 @@ cfg.EEGain = 0.75
 cfg.EIGain = 1.5
 cfg.IEGain = 1.5
 cfg.IIGain = 1.0
-cfg.L6IEGain = 1
+cfg.L6IEGain = 1.0
 
 ## E/I->E/I layer weights (L1-3, L4, L5, L6)
 cfg.EELayerGain = {'1': 1.0, '2': 1.0, '3': 1.0, '4': 1.0, '5A': 1.0, '5B': 1.0, '6': 1.0}
