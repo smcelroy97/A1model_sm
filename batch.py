@@ -67,7 +67,7 @@ def assr_batch_grid(filename):
                     ('EELayerGain', '4'), ('EILayerGain', '4'), ('IELayerGain', '4'), ('IILayerGain', '4'),
                     ('EELayerGain', '5A'), ('EILayerGain', '5A'), ('IELayerGain', '5A'), ('IILayerGain', '5A'),
                     ('EELayerGain', '5B'), ('EILayerGain', '5B'), ('IELayerGain', '5B'), ('IILayerGain', '5B'),
-                    ('EELayerGain', '6'), ('EILayerGain', '6'), ('IELayerGain', '6'), ('IILayerGain', '6')]
+                    ('EELayerGain', '6'), ('EILayerGain', '6'), ('IILayerGain', '6')] #  ('IELayerGain', '6')
 
     for p in updateParams:
         if isinstance(p, tuple):

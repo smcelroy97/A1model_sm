@@ -178,6 +178,3 @@ sim.analysis.plotData()    # plot spike raster etc
 #                             saveFig=True)
 
 
-
-current_time = now.strftime("%H:%M:%S")
-print("Current Time =", current_time)
