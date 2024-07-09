@@ -31,11 +31,13 @@ def assr_batch_grid(filename):
     params['EIGain'] = [1.6313576020869256]
     params['IEGain'] = [1.716277020224909]
     params['IIGain'] = [1.4102431748127964]
-    params['L6IEGain'] = [1.25, 1.5, 1.75]
+    params['EELayerGain', '6'] = [1.0, 0.75, 0.5]
+    params['EEPopGain', 'IT3'] = [1.25, 1.0, 0.75]
+
     # params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
 
     #### GROUPED PARAMS ####
-    groupedParams = []
+    groupedParams = [['EELayerGain', '6'], ['EEPopGain', '3']]
 
     # --------------------------------------------------------
     # initial config
@@ -63,11 +65,11 @@ def assr_batch_grid(filename):
                     ('IECellTypeGain', 'NGF'),
                     ('EILayerGain', '1'), ('IILayerGain', '1'),
                     ('EELayerGain', '2'), ('EILayerGain', '2'),  ('IELayerGain', '2'), ('IILayerGain', '2'),
-                    ('EELayerGain', '3'), ('EILayerGain', '3'), ('IELayerGain', '3'), ('IILayerGain', '3'),
+                    ('EILayerGain', '3'), ('IELayerGain', '3'), ('IILayerGain', '3'),
                     ('EELayerGain', '4'), ('EILayerGain', '4'), ('IELayerGain', '4'), ('IILayerGain', '4'),
                     ('EELayerGain', '5A'), ('EILayerGain', '5A'), ('IELayerGain', '5A'), ('IILayerGain', '5A'),
                     ('EELayerGain', '5B'), ('EILayerGain', '5B'), ('IELayerGain', '5B'), ('IILayerGain', '5B'),
-                    ('EELayerGain', '6'), ('EILayerGain', '6'), ('IILayerGain', '6')] #  ('IELayerGain', '6')
+                    ('EILayerGain', '6'), ('IELayerGain', '6'), ('IILayerGain', '6')] # ('EELayerGain', '6')  ('EELayerGain', '3')
 
     for p in updateParams:
         if isinstance(p, tuple):
@@ -273,7 +275,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'CtxL6IEGain0708'
+    b.batchLabel = 'L3L6GainTune0709'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
