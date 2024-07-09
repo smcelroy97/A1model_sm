@@ -31,7 +31,7 @@ def assr_batch_grid(filename):
     params['EIGain'] = [1.6313576020869256]
     params['IEGain'] = [1.716277020224909]
     params['IIGain'] = [1.4102431748127964]
-    params['EELayerGain', '6'] = [1.0, 0.75, 0.5]
+    # params['EELayerGain', '6'] = [1.0, 0.75, 0.5]
     params['EEPopGain', 'IT3'] = [1.25, 1.0, 0.75]
 
     # params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
