@@ -32,12 +32,12 @@ def assr_batch_grid(filename):
     params['IEGain'] = [1.716277020224909]
     params['IIGain'] = [1.4102431748127964]
     # params['EELayerGain', '6'] = [1.0, 0.75, 0.5]
-    params['EEPopGain', 'IT3'] = [1.25, 1.0, 0.75]
+    params['EILayerGain', '3'] = [0.3, 0.4, 0.5]
 
     # params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
 
     #### GROUPED PARAMS ####
-    groupedParams = [['EELayerGain', '6'], ['EEPopGain', '3']]
+    groupedParams = []
 
     # --------------------------------------------------------
     # initial config
@@ -275,7 +275,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'L3L6GainTune0709'
+    b.batchLabel = 'L3IEGainTune0710'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
