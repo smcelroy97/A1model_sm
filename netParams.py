@@ -353,6 +353,8 @@ def wireCortex():
                             if 'NGF1' in post:
                                 scaleFactor = cfg.ENGF1
                             if pre == 'IT3':
+                                if post == 'IT3':
+                                    scaleFactor = cfg.L3L3scaleFactor
                                 if post == 'PV4':
                                     scaleFactor = cfg.L3L4PV
                                 elif post == 'SOM4':

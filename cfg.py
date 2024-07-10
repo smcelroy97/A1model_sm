@@ -230,6 +230,7 @@ cfg.thalL4E = 1.9540886147587417
 
 cfg.thalL4VIP = 1.0
 cfg.thalL4NGF = 1.0
+cfg.L3L3scaleFactor = 1.0
 
 cfg.thalIIScale = 1.5
 

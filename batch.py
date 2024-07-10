@@ -32,7 +32,7 @@ def assr_batch_grid(filename):
     params['IEGain'] = [1.716277020224909]
     params['IIGain'] = [1.4102431748127964]
     # params['EELayerGain', '6'] = [1.0, 0.75, 0.5]
-    params['EILayerGain', '3'] = [0.3, 0.4, 0.5]
+    params['L3L3scaleFactor'] = [0.75, 0.5, 0.25]
 
     # params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
 
@@ -257,6 +257,21 @@ def setRunCfg(b, type='hpc_sge'):
                     'skip': True,
                     'skipCustom': '_data.pkl'}
 
+    elif type == 'hpc_slurm_JUSUF':
+        b.runCfg = {'type': 'hpc_slurm',
+                    'allocation': 'TG-IBN140002',
+                    'partition': 'shared',
+                    'walltime': '1:40:00',
+                    'nodes': 1,
+                    'coresPerNode': 64,
+                    'email': 'scott.mcelroy@downstate.edu',
+                    'folder': '/home/smcelroy/A1model_sm/',
+                    'script': 'init.py',
+                    'mpiCommand': 'mpirun',
+                    'custom': '#SBATCH --constraint="lustre"\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
+                    'skip': True,
+                    'skipCustom': '_data.pkl'}
+
     elif type=='mpi_direct':
         b.runCfg = {'type': 'mpi_direct',
                     'cores': 1,
@@ -275,7 +290,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'L3IEGainTune0710'
+    b.batchLabel = 'L3L3Tune0710'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
