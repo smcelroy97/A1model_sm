@@ -27,14 +27,16 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params['EEGain'] = [1.18702850562324]
-    params['EIGain'] = [1.6313576020869256]
-    params['IEGain'] = [1.716277020224909]
-    params['IIGain'] = [1.4102431748127964]
-    # params['EELayerGain', '6'] = [1.0, 0.75, 0.5]
-    params['L3L3scaleFactor'] = [0.75, 0.5, 0.25]
+    params['EEGain'] = [0.3]
+    # params['EIGain'] = [1.6313576020869256]
+    # params['IEGain'] = [1.716277020224909]
+    # params['IIGain'] = [1.4102431748127964]
 
-    # params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
+    # params['EELayerGain', '6'] = [1.0, 0.75, 0.5]
+    # params['L3L3scaleFactor'] = [0.75, 0.5, 0.25]
+    params['thalIIScale'] = [1.75]
+    params['thalL4E'] = [2.5]
+    params['cochlearThalInput', 'lfnwave'] = ['100msClick624ISIBestFreq.wav']
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -58,18 +60,18 @@ def assr_batch_grid(filename):
     initCfg['saveCellConns'] = False
 
     # from prev - best of 50% cell density
-    updateParams = [#'EEGain', 'EIGain', 'IEGain', 'IIGain',
+    updateParams = ['EIGain', 'IEGain', 'IIGain', #'EEGain',
                     ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'), ('EICellTypeGain', 'VIP'),
                     ('EICellTypeGain', 'NGF'),
                     ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'),
                     ('IECellTypeGain', 'NGF'),
                     ('EILayerGain', '1'), ('IILayerGain', '1'),
                     ('EELayerGain', '2'), ('EILayerGain', '2'),  ('IELayerGain', '2'), ('IILayerGain', '2'),
-                    ('EILayerGain', '3'), ('IELayerGain', '3'), ('IILayerGain', '3'),
+                    ('EELayerGain', '3'), ('EILayerGain', '3'), ('IELayerGain', '3'), ('IILayerGain', '3'),
                     ('EELayerGain', '4'), ('EILayerGain', '4'), ('IELayerGain', '4'), ('IILayerGain', '4'),
                     ('EELayerGain', '5A'), ('EILayerGain', '5A'), ('IELayerGain', '5A'), ('IILayerGain', '5A'),
                     ('EELayerGain', '5B'), ('EILayerGain', '5B'), ('IELayerGain', '5B'), ('IILayerGain', '5B'),
-                    ('EILayerGain', '6'), ('IELayerGain', '6'), ('IILayerGain', '6')] # ('EELayerGain', '6')  ('EELayerGain', '3')
+                    ('EELayerGain', '6'), ('EILayerGain', '6'), ('IELayerGain', '6'), ('IILayerGain', '6')] # ('EELayerGain', '6')  ('EELayerGain', '3')
 
     for p in updateParams:
         if isinstance(p, tuple):
@@ -290,7 +292,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'L3L3Tune0710'
+    b.batchLabel = 'YubTest0711'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
