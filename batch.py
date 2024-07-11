@@ -297,5 +297,5 @@ if __name__ == '__main__':
     b.batchLabel = 'YubParamsL60711'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_slurm_Expanse')
+    setRunCfg(b, 'hpc_sge')
     b.run() # run batch
