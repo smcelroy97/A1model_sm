@@ -263,15 +263,16 @@ def setRunCfg(b, type='hpc_sge'):
     elif type == 'hpc_slurm_JUSUF':
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
-                    'partition': 'shared',
+                    'partition': 'compute',
                     'walltime': '1:40:00',
                     'nodes': 1,
-                    'coresPerNode': 64,
+                    'coresPerNode': 128,
                     'email': 'scott.mcelroy@downstate.edu',
                     'folder': '/home/smcelroy/A1model_sm/',
                     'script': 'init.py',
                     'mpiCommand': 'mpirun',
-                    'custom': '#SBATCH --constraint="lustre"\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
+                    'custom': '\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
+                   # 'custom': '#SBATCH --constraint="lustre"\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
                     'skip': True,
                     'skipCustom': '_data.pkl'}
 
