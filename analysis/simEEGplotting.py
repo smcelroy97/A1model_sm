@@ -11,7 +11,7 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'ThalIITune0620'  # Name of batch for fig saving
+batch = 'CandTest0708'  # Name of batch for fig saving
 
 stim_on = 3000
 # calcEEG = {'start': 3624, 'stop': 4124}

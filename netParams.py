@@ -315,6 +315,8 @@ def wireCortex():
                         prob = '%f * exp(-dist_2D/%f)' % (pmat[pre][post], lmat[pre][post])
                     else:
                         prob = pmat[pre][post]
+                    if post == 'CT6':
+                        scaleFactor = cfg.CT6ScaleFactor
                     if pre == 'ITS4' or pre == 'ITP4':
                         if post == 'IT3':
                             scaleFactor = cfg.L4L3E  # 25
@@ -393,7 +395,7 @@ def wireCortex():
                                 IEGain = cfg.IEGain
                                 if 'CT6' in post:
                                     IEGain = cfg.L6IEGain
-                                if 'T6' in post:
+                                if 'IT6' in post:
                                     IEGain = cfg.L6IEGain
                                 if 'SOM' in pre:
                                     synMech = SOMESynMech

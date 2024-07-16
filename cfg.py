@@ -75,7 +75,7 @@ cfg.recordDipole = False
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = '8sTestCNS0715'
+cfg.simLabel = 'CT6Tune0716'
 cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
 cfg.savePickle = True ## Save pkl file
 cfg.saveJson = False ## Save json file
@@ -231,6 +231,7 @@ cfg.thalL4E = 1.9540886147587417
 cfg.thalL4VIP = 1.0
 cfg.thalL4NGF = 1.0
 cfg.L3L3scaleFactor = 1.0
+cfg.CT6ScaleFactor = 1.0
 
 cfg.thalIIScale = 1.5
 
@@ -292,7 +293,7 @@ cfg.cochlearThalInput = True
 
 if cfg.cochlearThalInput:
     cfg.cochlearThalInput = {"lonset" : [0], "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessScale": 1,
-                             "lfnwave": ["100msPureToneBest8s.wav"]}
+                             "lfnwave": ["silence6s.wav"]}
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore
