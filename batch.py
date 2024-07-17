@@ -32,7 +32,7 @@ def assr_batch_grid(filename):
     params['IEGain'] = [1.716277020224909]
     params['IIGain'] = [1.4102431748127964]
     params['CT6ScaleFactor'] = [0.5, 0.25]
-    params['IElayerGain', '6'] = [4.0, 4.25, 4.5]
+    params['IELayerGain', '6'] = [4.0, 4.25, 4.5]
 
     #### GROUPED PARAMS ####
     groupedParams = []
