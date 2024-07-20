@@ -94,7 +94,7 @@ cfg.saveCellConns = False
 cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (25,25), 'plotRates': False,
                               'markerSize': 1}      	## Plot a raster
 # cfg.analysis['plotConn'] = {'includePost': ['IRE', 'IREM'], 'saveFig': True}
-cfg.analysis['plotSpikeStats'] = {'stats': ['isicv'], 'figSize': (6,12), 'timeRange': [0, 2500], 'dpi': 300, 'saveFig': True}
+cfg.analysis['plotSpikeStats'] = {'stats': ['isicv'], 'figSize': (6,12), 'dpi': 300, 'saveFig': True}
 
 # cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4), 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
 # cfg.analysis['plotDipole'] = {'saveFig': True}
