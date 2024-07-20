@@ -31,8 +31,8 @@ def assr_batch_grid(filename):
     params['EIGain'] = [1.6313576020869256]
     params['IEGain'] = [1.716277020224909]
     params['IIGain'] = [1.4102431748127964]
-    params['CT6ScaleFactor'] = [0.5]
-    params['IELayerGain', '6'] = [4.0, 4.25, 4.5]
+    params['CT6ScaleFactor'] = [0.475, 0.45, 0.425]
+    params['IELayerGain', '6'] = [4.5]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -246,7 +246,7 @@ def setRunCfg(b, type='hpc_sge'):
                     'partition': 'shared',
                     'walltime': '1:40:00',
                     'nodes': 1,
-                    'coresPerNode': 64,
+                    'coresPerNode': 128,
                     'email': 'scott.mcelroy@downstate.edu',
                     'folder': '/home/smcelroy/A1model_sm/',
                     'script': 'init.py',
@@ -289,7 +289,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'CT6Tune0720'
+    b.batchLabel = 'CT6Tune0720A'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_slurm_Expanse')
