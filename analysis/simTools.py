@@ -240,7 +240,6 @@ class simTools:
 
             # Store the firing rates for the current population
             firing_rates[pop] = pop_firing_rates
-
         # Plot the firing rates
         plt.figure()
         for pop, rates in firing_rates.items():
