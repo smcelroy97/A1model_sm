@@ -835,6 +835,8 @@ if cfg.addBkgConn:
     for pop in ['IRE', 'IREM', 'TI', 'TIM']:
         weightBkg[pop] *= cfg.IbkgThalamicGain
 
+    for pop in ['NGF6']:
+        weightBkg[pop] *= cfg.NGF6bkgGain
 
     for pop in pops:
         netParams.stimTargetParams['excBkg->'+pop] =  {
