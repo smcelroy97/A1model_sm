@@ -32,7 +32,7 @@ def assr_batch_grid(filename):
     params['IEGain'] = [1.716277020224909]
     params['IIGain'] = [1.4102431748127964]
     params['CT6ScaleFactor'] = [0.4]
-    params['IELayerGain', '6'] = [4.9, 4.925, 4.975]
+    params['IELayerGain', '6'] = [5.0, 5.025, 5.075]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -56,8 +56,7 @@ def assr_batch_grid(filename):
     initCfg['saveCellConns'] = False
 
     # from prev - best of 50% cell density
-    updateParams = ['EIGain', 'IEGain', 'IIGain', #'EEGain',
-                    ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'), ('EICellTypeGain', 'VIP'),
+    updateParams = [('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'), ('EICellTypeGain', 'VIP'),
                     ('EICellTypeGain', 'NGF'),
                     ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'),
                     ('IECellTypeGain', 'NGF'),
@@ -67,7 +66,9 @@ def assr_batch_grid(filename):
                     ('EELayerGain', '4'), ('EILayerGain', '4'), ('IELayerGain', '4'), ('IILayerGain', '4'),
                     ('EELayerGain', '5A'), ('EILayerGain', '5A'), ('IELayerGain', '5A'), ('IILayerGain', '5A'),
                     ('EELayerGain', '5B'), ('EILayerGain', '5B'), ('IELayerGain', '5B'), ('IILayerGain', '5B'),
-                    ('EELayerGain', '6'), ('EILayerGain', '6'), ('IELayerGain', '6'), ('IILayerGain', '6')] # ('EELayerGain', '6')  ('EELayerGain', '3')
+                    ('EELayerGain', '6'), ('EILayerGain', '6'), ('IILayerGain', '6')]
+                    # Things removed for tuning, put back when finished, or update value:
+                    # 'EIGain', 'IEGain', 'IIGain', 'EEGain', ('IELayerGain', '6')
 
     for p in updateParams:
         if isinstance(p, tuple):
@@ -289,7 +290,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'L6ETune0805'
+    b.batchLabel = 'L6ETune0805A'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
