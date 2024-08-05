@@ -32,7 +32,7 @@ def assr_batch_grid(filename):
     params['IEGain'] = [1.716277020224909]
     params['IIGain'] = [1.4102431748127964]
     params['CT6ScaleFactor'] = [0.4]
-    params['IELayerGain', '6'] = [5.0, 5.025, 5.075]
+    params['IELayerGain', '6'] = [5.1, 5.2, 5.3]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -290,7 +290,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'L6ETune0805A'
+    b.batchLabel = 'L6ETune0805B'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
