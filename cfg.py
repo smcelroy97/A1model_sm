@@ -9,9 +9,10 @@ Contributors: ericaygriffith@gmail.com, salvadordura@gmail.com, samnemo@gmail.co
 
 from netpyne import specs
 import pickle
-import numpy as np
 
-cfg = specs.SimConfig()
+from netpyne.specs import SimConfig
+
+cfg: SimConfig = specs.SimConfig()
 
 # ------------------------------------------------------------------------------
 #
@@ -22,10 +23,10 @@ cfg = specs.SimConfig()
 # ------------------------------------------------------------------------------
 # Run parameters
 # ------------------------------------------------------------------------------
-cfg.duration = 8e3## Duration of the sim, in ms
-cfg.dt = 0.05  ## Internal Integration Time Step
-cfg.verbose = 0  ## Show detailed messages
-cfg.progressBar = 0
+cfg.duration = 8e3  # Duration of the sim, in ms
+cfg.dt = 0.05  # Internal Integration Time Step
+cfg.verbose = 0  # Show detailed messages
+cfg.progressBar = 0  # even more detailed message
 cfg.hParams['celsius'] = 37
 cfg.createNEURONObj = 1
 cfg.createPyStruct = 1
@@ -57,15 +58,17 @@ cfg.thalInhib = ['IRE', 'IREM', 'TI', 'TIM']
 
 alltypes = ['NGF1', 'IT2', 'PV2', 'SOM2', 'VIP2', 'ITS4', 'PT5B', 'TC', 'HTC', 'IRE', 'TI']
 
-cfg.recordTraces = {'V_soma': {'sec': 'soma', 'loc': 0.5, 'var': 'v'}}  ## Dict with traces to record -- taken from M1 cfg.py
-cfg.recordStim = False  ## Seen in M1 cfg.py
-cfg.recordTime = True  ## SEen in M1 cfg.py
-cfg.recordStep = 0.05  ## Step size (in ms) to save data -- value from M1 cfg.py
+# Dict with traces to record -- taken from M1 cfg.py
+cfg.recordTraces = {'V_soma': {'sec': 'soma', 'loc': 0.5, 'var': 'v'}}
+cfg.recordStim = False  # Seen in M1 cfg.py
+cfg.recordTime = True  # SEen in M1 cfg.py
+cfg.recordStep = 0.05  # Step size (in ms) to save data -- value from M1 cfg.py
 
 
 cfg.recordLFP = [[100, y, 100] for y in range(0, 2000, 100)]
 # cfg.recordLFP = [[x, 1000, 100] for x in range(100, 2200, 200)] #+[[100, 2500, 200], [100,2700,200]]
-# cfg.saveLFPPops =  cfg.allpops #, "IT3", "SOM3", "PV3", "VIP3", "NGF3", "ITP4", "ITS4", "IT5A", "CT5A", "IT5B", "PT5B", "CT5B", "IT6", "CT6"]
+# cfg.saveLFPPops =  cfg.allpops #, "IT3", "SOM3", "PV3", "VIP3", "NGF3", "ITP4",
+# "ITS4", "IT5A", "CT5A", "IT5B", "PT5B", "CT5B", "IT6", "CT6"]
 
 cfg.recordDipole = False
 # cfg.saveDipoleCells = ['all']
@@ -76,9 +79,9 @@ cfg.recordDipole = False
 # ------------------------------------------------------------------------------
 
 cfg.simLabel = 'CT6Tune0716'
-cfg.saveFolder = 'data/' + cfg.simLabel  ## Set file output name
-cfg.savePickle = True ## Save pkl file
-cfg.saveJson = False ## Save json file
+cfg.saveFolder = 'data/' + cfg.simLabel  # Set file output name
+cfg.savePickle = True  # Save pkl file
+cfg.saveJson = False  # Save json file
 cfg.saveDataInclude = ['simData', 'simConfig', 'net']
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
@@ -89,21 +92,29 @@ cfg.saveCellConns = False
 # Analysis and plotting
 # ------------------------------------------------------------------------------
 
-# cfg.analysis['plotTraces'] = {'include': [('TC', i) for i in range(40)], 'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
-# cfg.analysis['plotTraces'] = {'include': ['TC', 'IRE'],  'timeRange': [0, cfg.duration], 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
-cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True, 'timeRange': [0,cfg.duration], 'figSize': (25,25), 'plotRates': False,
-                              'markerSize': 1}      	## Plot a raster
+# cfg.analysis['plotTraces'] = {'include': [('TC', i) for i in range(40)], 'timeRange': [0, cfg.duration],
+# 'oneFigPer': 'trace', 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)}
+# #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
+# cfg.analysis['plotTraces'] = {'include': ['TC', 'IRE'],  'timeRange': [0, cfg.duration], 'oneFigPer': 'trace',
+# 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]
+cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True,
+                              'timeRange': [0, cfg.duration], 'figSize': (25, 25), 'plotRates': False,
+                              'markerSize': 1}   # Plot a raster
 # cfg.analysis['plotConn'] = {'includePost': ['IRE', 'IREM'], 'saveFig': True}
-cfg.analysis['plotSpikeStats'] = {'stats': ['isicv', 'rate'], 'figSize': (6,12), 'dpi': 300, 'saveFig': True}
+cfg.analysis['plotSpikeStats'] = {'stats': ['isicv', 'rate'], 'figSize': (6, 12), 'dpi': 300, 'saveFig': True}
 
-# cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4), 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
+# cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4),
+# 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
 # cfg.analysis['plotDipole'] = {'saveFig': True}
 # cfg.analysis['plotEEG'] = {'saveFig': True}
 
 
-layer_bounds= {'L1': 100, 'L2': 160, 'L3': 950, 'L4': 1250, 'L5A': 1334, 'L5B': 1550, 'L6': 2000}
-# cfg.analysis['plotCSD'] = {'spacing_um': 100, 'LFP_overlay': 1, 'layer_lines': 1, 'layer_bounds': layer_bounds, 'saveFig': 1, 'showFig': 0}
-# cfg.analysis['plot2Dnet'] = {'include' : ['cochlea', cfg.allThalPops ], 'showConns': 1, 'saveFig': 1}     	## Plot 2D visualization of cell positions & connections
+layer_bounds = {'L1': 100, 'L2': 160, 'L3': 950, 'L4': 1250, 'L5A': 1334, 'L5B': 1550, 'L6': 2000}
+# cfg.analysis['plotCSD'] = {'spacing_um': 100, 'LFP_overlay': 1, 'layer_lines': 1, 'layer_bounds': layer_bounds,
+# 'saveFig': 1, 'showFig': 0}
+
+# Plot 2D visualization of cell positions & connections
+# cfg.analysis['plot2Dnet'] = {'include' : ['cochlea', cfg.allThalPops ], 'showConns': 1, 'saveFig': 1}
 
 
 # ------------------------------------------------------------------------------
@@ -134,13 +145,13 @@ cfg.synWeightFractionENGF = [0.834, 0.166]  # NGF AMPA to NMDA ratio
 cfg.useHScale = False
 cfg.gabaBtau2 = 260.9
 
-cfg.synWeightFractionThalIE = [0.9,0.9]
-cfg.synWeightFractionThalII = [1.0,0.0]
+cfg.synWeightFractionThalIE = [0.9, 0.9]
+cfg.synWeightFractionThalII = [1.0, 0.0]
 
 # ------------------------------------------------------------------------------
 # Network
 # ------------------------------------------------------------------------------
-## These values taken from M1 cfg.py (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
+# These values taken from M1 cfg (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
 cfg.singleCellPops = False
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
@@ -148,7 +159,7 @@ cfg.scale = 1.0  # Is this what should be used?
 cfg.sizeY = 2000.0  # 1350.0 in M1_detailed # should this be set to 2000 since that is the full height of the column?
 cfg.sizeX = 200.0  # 400 - This may change depending on electrode radius
 cfg.sizeZ = 200.0
-cfg.scaleDensity = 1.0  # 0.25 #1.0 #0.075 # Should be 1.0 unless need lower cell density for test simulation or visualization
+cfg.scaleDensity = 1.0  # Should be 1.0 unless need lower cell density for test simulation or visualization
 
 # ------------------------------------------------------------------------------
 # Connectivity
@@ -173,7 +184,7 @@ cfg.IILayerGain = {'1': 1.0, '2': 1.0, '3': 1.0, '4': 1.0, '5A': 1.0, '5B': 1.0,
 # E -> E based on postsynaptic cortical E neuron population
 cfg.EEPopGain = {"IT2": 1.3125, "IT3": 1.55, "ITP4": 1.0, "ITS4": 1.0, "IT5A": 1.05,
                  "CT5A": 1.1500000000000001, "IT5B": 0.425, "CT5B": 1.1500000000000001,
-                 "PT5B": 1.05, "IT6": 1.05, "CT6": 1.05} # this is from after generation 203 of optunaERP_23dec23_ , values used in
+                 "PT5B": 1.05, "IT6": 1.05, "CT6": 1.05}  # this is from after generation 203 of optunaERP_23dec23_
 
 # gains from E -> I based on postsynaptic cortical I neuron population
 cfg.EIPopGain = {"NGF1": 1.0, "SOM2": 1.0, "PV2": 1.0, "VIP2": 1.0, "NGF2": 1.0, "SOM3": 1.0, "PV3": 1.0, "VIP3": 1.0,
@@ -185,12 +196,12 @@ cfg.EIPopGain = {"NGF1": 1.0, "SOM2": 1.0, "PV2": 1.0, "VIP2": 1.0, "NGF2": 1.0,
 cfg.EICellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0,
                       'NGF': 0.1}
 
-## I->E by target cell type
+# I->E by target cell type
 cfg.IECellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0, 'NGF': 1.0}
 
 # Thalamic
 cfg.addIntraThalamicConn = 1.0
-cfg.addCorticoThalamicConn =  1.0
+cfg.addCorticoThalamicConn = 1.0
 cfg.addThalamoCorticalConn = 1.0
 
 cfg.thalamoCorticalGain = 1.0
@@ -202,7 +213,7 @@ cfg.ThalIEscaleFactor = 0.7
 
 # these params control IC -> Thalamic Core
 cfg.ICThalweightECore = 0.8350476447841453
-cfg.ICThalweightICore =  0.2114492149101151
+cfg.ICThalweightICore = 0.2114492149101151
 cfg.ICThalprobECore = 0.163484173596043
 cfg.ICThalprobICore = 0.0936669688856933
 
@@ -212,7 +223,7 @@ cfg.ICThalprobEMatrix = cfg.ICThalprobECore
 cfg.ICThalprobIMatrix = cfg.ICThalprobICore
 
 # these params control cochlea -> Thalamus
-cfg.cochThalweightECore = 1.0 #0.1125
+cfg.cochThalweightECore = 1.0  # 0.1125
 cfg.cochThalprobECore = 0.3
 cfg.cochThalweightICore = 0.0675
 cfg.cochThalprobICore = 0.5
@@ -248,7 +259,7 @@ cfg.L4L3NGF = 1.0
 
 cfg.L4L4E = 1.0
 
-#L3 -> L4 Inhib pops
+# L3 -> L4 Inhib pops
 cfg.L3L4PV = 1.0
 cfg.L3L4SOM = 1.0
 
@@ -264,7 +275,8 @@ cfg.alterSyn2 = 0
 cfg.alterSyn3 = 0
 
 # full weight conn matrix
-with open('conn/conn.pkl', 'rb') as fileObj: connData = pickle.load(fileObj)
+with open('conn/conn.pkl', 'rb') as fileObj:
+    connData = pickle.load(fileObj)
 cfg.wmat = connData['wmat']
 
 cfg.seeds = {'conn': 23451, 'stim': 1, 'loc': 1}
@@ -281,7 +293,7 @@ cfg.startBkg = 0  # start at 0 ms
 #                 'TC': 1.8, 'HTC': 1.55, 'RE': 9.0, 'TI': 3.6}
 cfg.rateBkg = {'exc': 40, 'inh': 40}
 
-## options to provide external sensory input
+# options to provide external sensory input
 # cfg.randomThalInput = True  # provide random bkg inputs spikes (NetStim) to thalamic populations
 
 cfg.EbkgThalamicGain = 3.92
@@ -289,13 +301,16 @@ cfg.IbkgThalamicGain = 3.92
 
 cfg.NGF6bkgGain = 1.0
 
-cfg.cochlearThalInput = True
+cfg.cochlearThalInput = {}
 # parameters to generate realistic  auditory thalamic inputs using Brian Hears
 
 
 if cfg.cochlearThalInput:
-    cfg.cochlearThalInput = {"lonset" : [0], "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessScale": 1,
-                             "lfnwave": ["silence6s.wav"]}
+    cfg.cochlearThalInput["lonset"] = [0]
+    cfg.cochlearThalInput["numCenterFreqs"] = 100
+    cfg.cochlearThalInput["freqRange"] = [125, 20000]
+    cfg.cochlearThalInput["loudnessScale"] = 1
+    cfg.cochlearThalInput["lfnwave"] = ["silence6s.wav"]
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore
@@ -401,4 +416,3 @@ cfg.ICThalInput = False
 #              'weight': cfg.artFBweight,
 #              'prob': cfg.artFBprob,
 #              }
-
