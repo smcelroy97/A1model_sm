@@ -392,6 +392,7 @@ def wireCortex():
                         for post in Epops:
                             for l in layerGainLabels:  # used to tune each layer group independently
                                 prob = '%f * exp(-dist_2D/%f)' % (pmat[pre][post], lmat[pre][post])
+                                IEGain = cfg.IEGain
                                 if 'SOM' in pre:
                                     synMech = SOMESynMech
                                 elif 'PV' in pre:
