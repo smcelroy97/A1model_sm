@@ -27,13 +27,9 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params['EEGain'] = [1.18702850562324]
-    params['EIGain'] = [1.6313576020869256]
-    params['IEGain'] = [1.716277020224909]
-    params['IIGain'] = [1.4102431748127964]
-    params['CT6ScaleFactor'] = [0.4]
-    params['IELayerGain', '6'] = [5.1, 5.2, 5.3]
-
+    # params['CT6ScaleFactor'] = [0.4]
+    params['IELayerGain', '6'] = [4.9]
+    params['EELayerGain', '6'] = [1.1, 1.0, 0.9, 0.8, 0.7, 0.6]
     #### GROUPED PARAMS ####
     groupedParams = []
 
@@ -290,7 +286,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'L6ETune0805B'
+    b.batchLabel = 'L6EETune0806'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
