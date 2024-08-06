@@ -381,7 +381,7 @@ def wireCortex():
                                 'delay': 'defaultDelay+dist_3D/propVelocity',
                                 'synsPerConn': 1,
                                 'sec': 'proximal'}
-                            # cfg.NMDARfactor * wmat[pre][post] * cfg.EIGain * cfg.EICellTypeGain[postType] * cfg.EILayerGain[l]]
+# cfg.NMDARfactor * wmat[pre][post] * cfg.EIGain * cfg.EICellTypeGain[postType] * cfg.EILayerGain[l]]
 # ------------------------------------------------------------------------------
     ## I -> E
     if cfg.IEGain > 0.0:
@@ -526,9 +526,11 @@ def connectThalToCortex ():
             scaleFactor = 1.0
             if post in pmat[pre]:
                 if IsThalamicCore(pre): # use spatially dependent wiring for thalamic core
-                    prob = '%f * exp(-dist_x/%f)' % (pmat[pre][post], ThalamicCoreLambda) # NB: should check if this is ok
+                    # NB: should check if this is ok
+                    prob = '%f * exp(-dist_x/%f)' % (pmat[pre][post], ThalamicCoreLambda)
                 else:
-                    prob = '%f * exp(-dist_2D/%f)' % (pmat[pre][post], lmat[pre][post]) # NB: check what the 2D inverse distance based on. lmat from conn/conn.pkl
+                    # NB: check what the 2D inverse distance based on. lmat from conn/conn.pkl
+                    prob = '%f * exp(-dist_2D/%f)' % (pmat[pre][post], lmat[pre][post])
                 # for syns use ESynMech, SOMESynMech and SOMISynMech
                 if pre in TEpops:     # E->E/I
                     if post=='PV4':

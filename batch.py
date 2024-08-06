@@ -29,7 +29,8 @@ def assr_batch_grid(filename):
     # #### SET weights####
     # params['CT6ScaleFactor'] = [0.4]
     params['IELayerGain', '6'] = [4.9]
-    params['EELayerGain', '6'] = [1.1, 1.0, 0.9, 0.8, 0.7, 0.6]
+    params['EELayerGain', '6'] = [0.6]
+    params['EEGain'] = [1.18702850562324, 1.1, 1.05, 1.0]
     #### GROUPED PARAMS ####
     groupedParams = []
 
@@ -286,7 +287,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'L6EETune0806'
+    b.batchLabel = 'EEGainTune0806'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
