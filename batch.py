@@ -30,8 +30,8 @@ def assr_batch_grid(filename):
     # params['CT6ScaleFactor'] = [0.4]
     params['IELayerGain', '6'] = [4.9]
     params['EELayerGain', '6'] = [0.6]
-    params['EEGain'] = [1.18702850562324, 1.0]
-    params['IEGain'] = [2.1, 2.0, 1.9]
+    params['EEGain'] = [1.1]
+    params['IEGain'] = [2.05, 2.1, 2.15]
     #### GROUPED PARAMS ####
     groupedParams = []
 
@@ -41,7 +41,7 @@ def assr_batch_grid(filename):
     initCfg = {} # set default options from prev sim
 
     initCfg['duration'] = 6000 #11500
-    initCfg['printPopAvgRates'] = [3000, 6000]
+    initCfg['printPopAvgRates'] = [0, cfg.duration]
     initCfg['scaleDensity'] = 1.0
     initCfg['recordStep'] = 0.05
 
@@ -288,7 +288,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'GainTune0807'
+    b.batchLabel = 'GainTune0807A'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
