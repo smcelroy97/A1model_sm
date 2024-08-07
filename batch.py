@@ -30,9 +30,8 @@ def assr_batch_grid(filename):
     # params['CT6ScaleFactor'] = [0.4]
     params['IELayerGain', '6'] = [4.9]
     params['EELayerGain', '6'] = [0.6]
-    params['EEGain'] = [1.25, 1.18702850562324, 1.0]
-    params['EIGain'] = [1.8, 1.6313576020869256, 1.25]
-    params['IEGain'] = [1.9, 1.716277020224909, 1.5]
+    params['EEGain'] = [1.18702850562324, 1.0]
+    params['IEGain'] = [2.1, 2.0, 1.9]
     #### GROUPED PARAMS ####
     groupedParams = []
 
@@ -238,7 +237,7 @@ def setRunCfg(b, type='hpc_sge'):
                     'cores': 64, # give 60 cores here
                     'script': 'init.py', # what you normally run
                     'vmem': '256G', # or however much memory you need
-                    'walltime': '2:00:00', # make 2 hours or something
+                    'walltime': '2:15:00', # make 2 hours or something
                     'skip': True}
     elif type == 'hpc_slurm_Expanse':
         b.runCfg = {'type': 'hpc_slurm',
@@ -289,7 +288,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'GainTune0806'
+    b.batchLabel = 'GainTune0807'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
