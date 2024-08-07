@@ -41,7 +41,7 @@ def assr_batch_grid(filename):
     initCfg = {} # set default options from prev sim
 
     initCfg['duration'] = 6000 #11500
-    initCfg['printPopAvgRates'] = [0, cfg.duration]
+    initCfg['printPopAvgRates'] = [0, initCfg['duration']]
     initCfg['scaleDensity'] = 1.0
     initCfg['recordStep'] = 0.05
 
