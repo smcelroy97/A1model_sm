@@ -30,7 +30,7 @@ def assr_batch_grid(filename):
     # params['CT6ScaleFactor'] = [0.4]
     params['IELayerGain', '6'] = [4.9]
     params['EELayerGain', '6'] = [0.6]
-    params['IELayerGain', '4'] = [1.8, 1.75, 1.7, 1.5, 1.25]
+    params['EELayerGain', '4'] = [0.8, 0.9, 1.0, 1.1, 1.2, 1.3, 1.4, 1.5]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -61,12 +61,12 @@ def assr_batch_grid(filename):
                     ('EILayerGain', '1'), ('IILayerGain', '1'),
                     ('EELayerGain', '2'), ('EILayerGain', '2'),  ('IELayerGain', '2'), ('IILayerGain', '2'),
                     ('EELayerGain', '3'), ('EILayerGain', '3'), ('IELayerGain', '3'), ('IILayerGain', '3'),
-                    ('EELayerGain', '4'), ('EILayerGain', '4'), ('IELayerGain', '4'), ('IILayerGain', '4'),
+                    ('EILayerGain', '4'), ('IELayerGain', '4'), ('IILayerGain', '4'),
                     ('EELayerGain', '5A'), ('EILayerGain', '5A'), ('IELayerGain', '5A'), ('IILayerGain', '5A'),
                     ('EELayerGain', '5B'), ('EILayerGain', '5B'), ('IELayerGain', '5B'), ('IILayerGain', '5B'),
                     ('EELayerGain', '6'), ('EILayerGain', '6'), ('IILayerGain', '6')]
                     # Things removed for tuning, put back when finished, or update value:
-                    # 'EIGain', 'IEGain', 'IIGain', 'EEGain', ('IELayerGain', '6')
+                    # 'EIGain', 'IEGain', 'IIGain', 'EEGain', ('IELayerGain', '6') ('EELayerGain', '4'),
 
     for p in updateParams:
         if isinstance(p, tuple):
@@ -288,7 +288,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'L4IETune0808'
+    b.batchLabel = 'L4EETune0809'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
