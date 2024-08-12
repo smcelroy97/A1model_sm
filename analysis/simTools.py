@@ -53,8 +53,8 @@ class simTools:
         plt.tick_params(labelsize=50)
         plt.xlabel('Time (ms)', fontsize = 65)
         plt.ylabel('uV', fontsize = 65)
-        plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
-                    + batch + '/' + fname + 'ERP.png')
+        plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
+                    + batch + '/' + fname + '_ERP.png')
         print('saved')
 
     def plot_spectrogram(data, time, fname, batch, figsize = (20,20)):
@@ -92,8 +92,8 @@ class simTools:
             vmax=vmax,
             cmap=plt.get_cmap('viridis')
             )
-        plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
-                    + batch + '/' + fname + 'spect.png')
+        plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
+                    + batch + '/' + fname + '_EEGspect.png')
 
 
     def plot_PSD(data, fname, batch, figsize = (20,20)):
@@ -122,7 +122,7 @@ class simTools:
         plt.xlabel('Frequency')
         plt.ylabel('Power')
         plt.plot(F, signal)
-        plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
+        plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
                     + batch + '/' + fname + '_PSD.png')
 
 
@@ -172,8 +172,8 @@ class simTools:
             plt.title('Current Source Density (CSD) PSD Spectrogram')
 
             plt.tight_layout()
-            plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
-                        + batch + '/' + fname + 'PSDspect.png')
+            plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
+                        + batch + '/' + fname + '_CSDPSDspect.png')
         elif useLFP and not useCSD:
             lfp_PSD = sim.analysis.preparePSD(
                 CSD=False,
@@ -190,8 +190,8 @@ class simTools:
             plt.xlabel('Frequency')
             plt.ylabel('Electrode Depth')
             plt.title('Local Field Potential (LFP) PSD Spectrogram')
-            plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
-                        + batch + '/' + fname + 'LFPPSDspect.png')
+            plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
+                        + batch + '/' + fname + '_LFPPSDspect.png')
         else:
             csd_PSD = sim.analysis.preparePSD(
                 CSD=True,
@@ -210,8 +210,8 @@ class simTools:
             plt.title('Current Source Density (CSD) PSD Spectrogram')
 
             plt.tight_layout()
-            plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
-                        + batch + '/' + fname + 'CSDPSDspect.png')
+            plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
+                        + batch + '/' + fname + '_CSDPSDspect.png')
 
     def plotMUApops(sim, bin_start_times, bin_duration, populations, batch, fname):
         # Initialize an empty dictionary to store the firing rates for each population
@@ -248,7 +248,7 @@ class simTools:
         plt.ylabel('Firing rate')
         plt.xticks(range(0, (len(bin_start_times))))
         plt.legend()
-        plt.savefig('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
+        plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
                     + batch + '/' + fname + '_MUA.png')
 
 

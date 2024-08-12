@@ -11,39 +11,39 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'CandTest0708'  # Name of batch for fig saving
+batch = 'L4GainTune0809'  # Name of batch for fig saving
 
-stim_on = 3000
-# calcEEG = {'start': 3624, 'stop': 4124}
+stim_on = 1000
+calcEEG = {'start': 1000, 'stop': 6000}
 # filter = {'lowCut':2, 'hiCut': 12}
 # plotERP = {'useFilter': True}
-# plotSpectrogram = {'useFilter': False}
+plotSpectrogram = {'useFilter': False}
 # plotPSD = {'useFilter': True}
 # plotRaster = {'timeRange': [0, 6000]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
 # plotMUA = {'populations': ['TC', 'IRE', 'ITP4', 'ITS4'], 'stimDur': 200}
 
-calcEEG = False
+# calcEEG = False
 filter = False
 plotERP = False
-plotSpectrogram = False
+# plotSpectrogram = False
 plotPSD = False
 plotRaster = False
 PSDSpect = False
 plotMUA = False
 
 # Load sim EEG data
-base_dir = '/Users/scottmcelroy/A1_scz/A1_sim_data/' + batch + '/'  # Define dir from saved data dir
+base_dir = '/Users/scoot/A1Scz/A1_sim_data/' + batch + '/'  # Define dir from saved data dir
 for file in os.listdir(base_dir): # loop through that folder
     if file.endswith('_data.pkl') or file.endswith('_data.json'): # make sure you only download output data
         # Valery did this and fixed some problems, not sure why necessary
         sim.initialize()
         all = sim.loadAll(os.path.join(base_dir, file))
         fname = file[0:-9] #+ '_11_' # Create filename (can change to whatever)
-        if not os.path.exists('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch):
-            os.mkdir( '/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + batch)  # Create Figure directory if one doesn't already exist
+        if not os.path.exists('/Users/scoot/A1Scz/A1_figs/SIMfigs/' + batch):
+            os.mkdir( '/Users/scoot/A1Scz/A1_figs/SIMfigs/' + batch)  # Create Figure directory if one doesn't already exist
 
-        sim.analysis.plotSpikeStats(stat = ['rate', 'isicv'], saveFig=('/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/' + fname))
+        # sim.analysis.plotSpikeStats(stat = ['rate', 'isicv'], saveFig=('/Users/scoot/A1Scz/A1_figs/SIMfigs/' + batch + '/' + fname))
         # Calculate EEG signal at one electode (currently set to 'Cz'
         if calcEEG:
             stim_data, stim_window = simTools.calculateEEG(
@@ -118,7 +118,7 @@ for file in os.listdir(base_dir): # loop through that folder
                     timeRange=plotRaster['timeRange'],
                     markerSize=50,
                     figSize=(25, 25),
-                    saveFig='/Users/scottmcelroy/A1_scz/A1_figs/SIMfigs/'
+                    saveFig='/Users/scoot/A1Scz/A1_figs/SIMfigs/'
                             + batch + '/' + fname + '_Raster.png')
 
 
