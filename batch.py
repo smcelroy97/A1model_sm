@@ -244,9 +244,9 @@ def setRunCfg(b, type='hpc_sge'):
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
                     'partition': 'shared',
-                    'walltime': '1:40:00',
+                    'walltime': '2:00:00',
                     'nodes': 1,
-                    'coresPerNode': 128,
+                    'coresPerNode': 64,
                     'email': 'scott.mcelroy@downstate.edu',
                     'folder': '/home/smcelroy/A1model_sm/',
                     'script': 'init.py',
@@ -292,5 +292,5 @@ if __name__ == '__main__':
     b.batchLabel = 'InputTest0812'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_sge')
+    setRunCfg(b, 'hpc_slurm_Expanse')
     b.run() # run batch
