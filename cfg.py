@@ -311,16 +311,13 @@ cfg.IbkgThalamicGain = 3.92
 
 cfg.NGF6bkgGain = 1.0
 
-cfg.cochlearThalInput = {}
+cfg.cochlearThalInput = True
 # parameters to generate realistic  auditory thalamic inputs using Brian Hears
 
 
 if cfg.cochlearThalInput:
-    cfg.cochlearThalInput["lonset"] = [0]
-    cfg.cochlearThalInput["numCenterFreqs"] = 100
-    cfg.cochlearThalInput["freqRange"] = [125, 20000]
-    cfg.cochlearThalInput["loudnessScale"] = 1
-    cfg.cochlearThalInput["lfnwave"] = ["silence6s.wav"]
+    cfg.cochlearThalInput = {"lonset" : [0], "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessScale": 1,
+                             "lfnwave": ["silence6s.wav"]}
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore
