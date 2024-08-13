@@ -28,6 +28,10 @@ def assr_batch_grid(filename):
 
     # #### SET weights####
     params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
+    params['IELayerGain', '6'] = [4.9]
+    params['EELayerGain', '6'] = [0.6]
+    params['EILayerGain', '4'] = [0.7]
+    params['IILayerGain', '4'] = [1.08]
 
     #### GROUPED PARAMS ####
     groupedParams = []
@@ -285,7 +289,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'InputTest0812'
+    b.batchLabel = 'InputTest0813'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
