@@ -233,13 +233,13 @@ cfg.ICThalprobEMatrix = cfg.ICThalprobECore
 cfg.ICThalprobIMatrix = cfg.ICThalprobICore
 
 # these params control cochlea -> Thalamus
-cfg.cochThalweightECore = 1.0  # 0.1125
+cfg.cochThalweightECore = 0.225  #1.0  # 0.1125
 cfg.cochThalprobECore = 0.3
 cfg.cochThalweightICore = 0.0675
-cfg.cochThalprobICore = 0.5
+cfg.cochThalprobICore = 0.15 #0.5
 cfg.cochThalMatrixCoreFactor = 0.1
-cfg.cochThalprobEMatrix = cfg.cochThalprobECore
-cfg.cochThalprobIMatrix = cfg.cochThalprobICore
+cfg.cochThalprobEMatrix = 0.0375
+cfg.cochThalprobIMatrix = 0.009375
 cfg.cochThalFreqRange = [750, 1250]
 
 

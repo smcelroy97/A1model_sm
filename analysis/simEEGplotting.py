@@ -11,13 +11,13 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-# stim_on = 1000  # Define onset of stimulus if necessary
+stim_on = 3000  # Define onset of stimulus if necessary
 # calcEEG = {'start': 1000, 'stop': 6000}
 # filter = {'lowCut':2, 'hiCut': 12}
 # plotERP = {'useFilter': True}
 # plotSpectrogram = {'useFilter': False}
 # plotPSD = {'useFilter': True}
-# plotRaster = {'timeRange': [0, 6000]}
+plotRaster = {'timeRange': [0, 6000]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
 # plotMUA = {'populations': ['TC', 'IRE', 'ITP4', 'ITS4'], 'stimDur': 200}
 
@@ -26,12 +26,12 @@ filter = False
 plotERP = False
 plotSpectrogram = False
 plotPSD = False
-plotRaster = False
+# plotRaster = False
 PSDSpect = False
 plotMUA = False
 
 
-batch = 'L4GainTune0809'  # Name of batch for fig saving
+batch = 'InputTest0813'  # Name of batch for fig saving
 
 # Load sim EEG data
 base_dir = '/Users/scoot/A1Scz/A1_sim_data/' + batch + '/'  # Define dir from saved data dir
@@ -124,7 +124,7 @@ for file in os.listdir(base_dir):
                     timeRange    = plotRaster['timeRange'],
                     markerSize   = 50,
                     figSize      = (25, 25),
-                    saveFig      = save_dir
+                    saveFig      = str(save_dir + '_raster.png')
                 )
 
 
