@@ -11,135 +11,141 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-batch = 'L4GainTune0809'  # Name of batch for fig saving
-
-stim_on = 1000
-calcEEG = {'start': 1000, 'stop': 6000}
+# stim_on = 1000  # Define onset of stimulus if necessary
+# calcEEG = {'start': 1000, 'stop': 6000}
 # filter = {'lowCut':2, 'hiCut': 12}
 # plotERP = {'useFilter': True}
-plotSpectrogram = {'useFilter': False}
+# plotSpectrogram = {'useFilter': False}
 # plotPSD = {'useFilter': True}
 # plotRaster = {'timeRange': [0, 6000]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
 # plotMUA = {'populations': ['TC', 'IRE', 'ITP4', 'ITS4'], 'stimDur': 200}
 
-# calcEEG = False
+calcEEG = False
 filter = False
 plotERP = False
-# plotSpectrogram = False
+plotSpectrogram = False
 plotPSD = False
 plotRaster = False
 PSDSpect = False
 plotMUA = False
 
+
+batch = 'L4GainTune0809'  # Name of batch for fig saving
+
 # Load sim EEG data
 base_dir = '/Users/scoot/A1Scz/A1_sim_data/' + batch + '/'  # Define dir from saved data dir
-for file in os.listdir(base_dir): # loop through that folder
-    if file.endswith('_data.pkl') or file.endswith('_data.json'): # make sure you only download output data
-        # Valery did this and fixed some problems, not sure why necessary
-        sim.initialize()
-        all = sim.loadAll(os.path.join(base_dir, file))
-        fname = file[0:-9] #+ '_11_' # Create filename (can change to whatever)
-        if not os.path.exists('/Users/scoot/A1Scz/A1_figs/SIMfigs/' + batch):
-            os.mkdir( '/Users/scoot/A1Scz/A1_figs/SIMfigs/' + batch)  # Create Figure directory if one doesn't already exist
+figure_dir = '/Users/scoot/A1Scz/A1_figs/SIMfigs/' # Define dir for saving figures
 
-        # sim.analysis.plotSpikeStats(stat = ['rate', 'isicv'], saveFig=('/Users/scoot/A1Scz/A1_figs/SIMfigs/' + batch + '/' + fname))
-        # Calculate EEG signal at one electode (currently set to 'Cz'
+# Loop through all files in the directory
+for file in os.listdir(base_dir):
+    if file.endswith('_data.pkl') or file.endswith('_data.json'): # make sure you only download output data
+        sim.initialize()
+        all = sim.loadAll(os.path.join(base_dir, file))  # Valery did this and fixed some problems, not sure why necessary
+        fname = file[0:-9] # Create filename (can change to whatever)
+        if not os.path.exists(figure_dir + batch):
+            os.mkdir(figure_dir + batch)  # Create Figure directory if one doesn't already exist
+
+        save_dir = str(figure_dir + batch + '/' + fname)  # Define save directory for figures
+
+
         if calcEEG:
             stim_data, stim_window = simTools.calculateEEG(
-                sim,
-                start=calcEEG['start'],
-                end=calcEEG['stop'])  # Generate EEG data from dipole sums
-            # Time vector starting at t=0 instead of timeRange[0]
+                    sim   = sim,
+                    start = calcEEG['start'],
+                    end   = calcEEG['stop']
+                )  # Calculate EEG signal at one electode (currently set to 'Cz')
+
             offsetStart = calcEEG['start'] - stim_on
             endWindow = calcEEG['stop'] - stim_on
-            t = np.arange(offsetStart, endWindow, 0.05)
+            t = np.arange(offsetStart, endWindow, 0.05) # Time vector starting at t=0 instead of timeRange[0]
 
         # Filter EEG data
         if filter:
             filtered_data = simTools.filterEEG(
-                stim_data,
-                lowcut=filter['lowCut'],
-                highcut=filter['hiCut'],
-                fs=20000,
-                order=2)  # Filter (if needed)
+                    EEG     = stim_data,
+                    lowcut  = filter['lowCut'],
+                    highcut = filter['hiCut'],
+                    fs      = 20000,
+                    order   = 2
+                )
 
         # Plot ERP '
         if plotERP:
             if plotERP['useFilter'] == True:
                 simTools.plotERP(
-                    data = filtered_data,
-                    time = stim_window,
-                    fname = fname,
-                    batch = batch)  # Create ERP plot of time window specified
+                    data     = filtered_data,
+                    time     = stim_window,
+                    save_dir = save_dir
+                )  # Create filtered ERP plot of time window specified
 
             else:
                 simTools.plotERP(
-                    data = stim_data,
-                    time = t,
-                    fname = fname,
-                    batch = batch)
+                    data     = stim_data,
+                    time     = t,
+                    save_dir = save_dir
+                )  # Create unfiltered ERP plot of time window specified
 
         # Plot EEG Spectrogram
         if plotSpectrogram:
             if plotSpectrogram['useFilter'] == True:
                 simTools.plot_spectrogram(
-                    data=filtered_data,
-                    time=t,
-                    fname=fname,
-                    batch=batch)
+                    data     = filtered_data,
+                    time     = t,
+                    save_dir = save_dir
+                )
 
             else:
                 simTools.plot_spectrogram(
-                    data=stim_data,
-                    time=t,
-                    fname=fname,
-                    batch=batch)
+                    data     = stim_data,
+                    time     = t,
+                    save_dir = save_dir
+                )
 
         # Plot EEG PSD
         if plotPSD:
             if plotPSD['useFilter'] == True:
                 simTools.plot_PSD(
-                    data=filtered_data,
-                    fname=fname,
-                    batch=batch)
+                    data     = filtered_data,
+                    save_dir = save_dir
+                )
 
             else:
                 simTools.plot_PSD(
-                    data=stim_data,
-                    fname=fname,
-                    batch=batch)
+                    data     = stim_data,
+                    save_dir = save_dir
+                )
 
         # Plot Raster
         if plotRaster:
                 sim.analysis.plotRaster(
-                    include=[sim.cfg.allThalPops + sim.cfg.allCorticalPops],
-                    orderInverse=True,
-                    timeRange=plotRaster['timeRange'],
-                    markerSize=50,
-                    figSize=(25, 25),
-                    saveFig='/Users/scoot/A1Scz/A1_figs/SIMfigs/'
-                            + batch + '/' + fname + '_Raster.png')
+                    include      = [sim.cfg.allThalPops + sim.cfg.allCorticalPops],
+                    orderInverse = True,
+                    timeRange    = plotRaster['timeRange'],
+                    markerSize   = 50,
+                    figSize      = (25, 25),
+                    saveFig      = save_dir
+                )
 
 
         if PSDSpect:
             simTools.plotPSDSpectrogram(
-                    sim = sim,
-                    batch = batch,
-                    fname = fname,
+                    sim       = sim,
+                    save_dir  = save_dir,
                     timeRange = PSDSpect['timeRange'],
-                    useLFP = PSDSpect['useLFP'],
-                    useCSD = PSDSpect['useCSD'])
+                    useLFP    = PSDSpect['useLFP'],
+                    useCSD    = PSDSpect['useCSD']
+                )
 
 
         if plotMUA:
             simTools.plotMUApops(
-                sim = sim,
-                populations = plotMUA['populations'],
-                bin_start_times = [3000, 3724, 4448, 5172],
-                bin_duration = plotMUA['stimDur'],
-                batch = batch,
-                fname = fname)
+                    sim             = sim,
+                    populations     = plotMUA['populations'],
+                    bin_start_times = [3000, 3724, 4448, 5172],
+                    bin_duration    = plotMUA['stimDur'],
+                    save_dir        = save_dir
+                )
 
 
 

@@ -8,11 +8,16 @@ import matplotlib
 import random
 from    matplotlib  import  pyplot  as plt
 
-#####################################################
+#########################################################################
 #    Funcitons for analysis, code to use found in simEEGplotting.py     #
-#####################################################
+#########################################################################
 class simTools:
-    def calculateEEG(sim, start, end):
+    def calculateEEG(
+            sim,
+            start,
+            end
+    ):
+
         # Load 3D head model for EEG
         nyhead = NYHeadModel(nyhead_file=os.getenv('NP_LFPYKIT_HEAD_FILE', None))
         nyhead.set_dipole_pos([ 39.74573803, -21.57684261, 7.82510972])
@@ -38,7 +43,14 @@ class simTools:
         offset = int(end / 0.05)
         return goodchan, t
 
-    def filterEEG(EEG, lowcut, highcut, fs, order):
+    def filterEEG(
+            EEG,
+            lowcut,
+            highcut,
+            fs,
+            order
+    ):
+
         nyq = 0.5 * fs
         low = lowcut / nyq
         high = highcut / nyq
@@ -46,18 +58,29 @@ class simTools:
         filtered_signal = filtfilt(b, a, EEG)
         return filtered_signal
 
-    def plotERP(data, time, fname, batch, figsize = (30,20)):
+    def plotERP(
+            data,
+            time,
+            save_dir,
+            figsize = (30,20)
+    ):
+
         plt.figure(figsize=figsize)
         plt.plot(time,data/1000, color='black', linewidth = 8)
         plt.axhline(y=0, color='black',linestyle='-', linewidth = 4)
         plt.tick_params(labelsize=50)
         plt.xlabel('Time (ms)', fontsize = 65)
         plt.ylabel('uV', fontsize = 65)
-        plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
-                    + batch + '/' + fname + '_ERP.png')
+        plt.savefig(save_dir + '_ERP.png')
         print('saved')
 
-    def plot_spectrogram(data, time, fname, batch, figsize = (20,20)):
+    def plot_spectrogram(
+            data,
+            time,
+            save_dir,
+            figsize = (20,20)
+    ):
+
         # sampling frequency
         fs = int(1000.0 / 0.05)
 
@@ -67,7 +90,13 @@ class simTools:
 
         # Perform Morlet transform
         freqList = None
-        spec = (MorletSpec(data, fs, freqmin=minFreq, freqmax=maxFreq, freqstep=1, lfreq=freqList))
+        spec = (MorletSpec(
+            data,
+            fs,
+            freqmin  = minFreq,
+            freqmax  = maxFreq,
+            freqstep = 1,
+            lfreq    = freqList))
 
         # Min and mox for the color of normalized power
         vmin = spec.TFR.min()
@@ -84,19 +113,18 @@ class simTools:
         plt.ylabel('Frequency (Hz)', fontsize = 65)
         plt.imshow(
             S,
-            extent=(np.amin(T), np.amax(T), np.amin(F), np.amax(F)),
-            origin='lower',
-            interpolation='None',
-            aspect='auto',
-            vmin=vmin,
-            vmax=vmax,
-            cmap=plt.get_cmap('viridis')
+            extent        = (np.amin(T), np.amax(T), np.amin(F), np.amax(F)),
+            origin        = 'lower',
+            interpolation = 'None',
+            aspect        = 'auto',
+            vmin          = vmin,
+            vmax          = vmax,
+            cmap          = plt.get_cmap('viridis')
             )
-        plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
-                    + batch + '/' + fname + '_EEGspect.png')
+        plt.savefig(save_dir + '_EEGspect.png')
 
 
-    def plot_PSD(data, fname, batch, figsize = (20,20)):
+    def plot_PSD(data, save_dir, figsize = (20,20)):
         # sampling frequency
         fs = int(1000.0 / 0.05)
 
@@ -106,7 +134,13 @@ class simTools:
 
         # Perform Morlet transform
         freqList = None
-        spec = (MorletSpec(data, fs, freqmin=minFreq, freqmax=maxFreq, freqstep=1, lfreq=freqList))
+        spec = (MorletSpec(
+            data,
+            fs,
+            freqmin  = minFreq,
+            freqmax  = maxFreq,
+            freqstep = 1,
+            lfreq    = freqList))
 
         # Min and mox for the color of normalized power
         vmin = spec.TFR.min()
@@ -122,34 +156,36 @@ class simTools:
         plt.xlabel('Frequency')
         plt.ylabel('Power')
         plt.plot(F, signal)
-        plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
-                    + batch + '/' + fname + '_PSD.png')
+        plt.savefig(save_dir + '_PSD.png')
 
 
     def plotPSDSpectrogram(
             sim,
-            batch,
-            fname,
+            save_dir,
             timeRange,
-            showMin = 1,
-            showMax = 100,
-            filtFreq= False,
-            useLFP = True,
-            useCSD = True):
+            showMin  = 1,
+            showMax  = 100,
+            filtFreq = False,
+            useLFP   = True,
+            useCSD   = True
+    ):
 
         if useCSD and useLFP:
             lfp_PSD = sim.analysis.preparePSD(
-                CSD=False,
-                minFreq=showMin,
-                maxFreq=showMax,
-                filtFreq=filtFreq,
-                timeRange=timeRange)
+                CSD       = False,
+                minFreq   = showMin,
+                maxFreq   = showMax,
+                filtFreq  = filtFreq,
+                timeRange = timeRange
+            )
+
             csd_PSD = sim.analysis.preparePSD(
-                CSD=True,
-                minFreq=showMin,
-                maxFreq=showMax,
-                filtFreq=filtFreq,
-                timeRange=timeRange)
+                CSD       = True,
+                minFreq   = showMin,
+                maxFreq   = showMax,
+                filtFreq  = filtFreq,
+                timeRange = timeRange
+            )
 
             plt.figure(figsize=(12, 6))
             plt.subplot(121)
@@ -172,15 +208,16 @@ class simTools:
             plt.title('Current Source Density (CSD) PSD Spectrogram')
 
             plt.tight_layout()
-            plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
-                        + batch + '/' + fname + '_CSDPSDspect.png')
+            plt.savefig(save_dir + '_CSDPSDspect.png')
+
         elif useLFP and not useCSD:
             lfp_PSD = sim.analysis.preparePSD(
-                CSD=False,
-                minFreq=showMin,
-                maxFreq=showMax,
-                filtFreq=filtFreq,
-                timeRange=timeRange)
+                CSD       = False,
+                minFreq   = showMin,
+                maxFreq   = showMax,
+                filtFreq  = filtFreq,
+                timeRange = timeRange
+            )
 
             plt.figure()
             plt.imshow(lfp_PSD['psdSignal'], aspect='auto', origin='lower', cmap='viridis')
@@ -190,15 +227,16 @@ class simTools:
             plt.xlabel('Frequency')
             plt.ylabel('Electrode Depth')
             plt.title('Local Field Potential (LFP) PSD Spectrogram')
-            plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
-                        + batch + '/' + fname + '_LFPPSDspect.png')
+            plt.savefig(save_dir + '_LFPPSDspect.png')
+
         else:
             csd_PSD = sim.analysis.preparePSD(
-                CSD=True,
-                minFreq=showMin,
-                maxFreq=showMax,
-                filtFreq=filtFreq,
-                timeRange=timeRange)
+                CSD       = True,
+                minFreq   = showMin,
+                maxFreq   = showMax,
+                filtFreq  = filtFreq,
+                timeRange = timeRange
+            )
 
             plt.figure()
             plt.imshow(csd_PSD['psdSignal'], aspect='auto', origin='lower', cmap='viridis')
@@ -210,10 +248,15 @@ class simTools:
             plt.title('Current Source Density (CSD) PSD Spectrogram')
 
             plt.tight_layout()
-            plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
-                        + batch + '/' + fname + '_CSDPSDspect.png')
+            plt.savefig(save_dir + '_CSDPSDspect.png')
 
-    def plotMUApops(sim, bin_start_times, bin_duration, populations, batch, fname):
+    def plotMUApops(
+            sim,
+            bin_start_times,
+            bin_duration,
+            populations,
+            save_dir
+    ):
         # Initialize an empty dictionary to store the firing rates for each population
         firing_rates = {}
 
@@ -248,8 +291,7 @@ class simTools:
         plt.ylabel('Firing rate')
         plt.xticks(range(0, (len(bin_start_times))))
         plt.legend()
-        plt.savefig('/Users/scoot/A1Scz/A1_figs/SIMfigs/'
-                    + batch + '/' + fname + '_MUA.png')
+        plt.savefig(save_dir + '_MUA.png')
 
 
 #####################################################
@@ -257,7 +299,12 @@ class simTools:
 #####################################################
 class editNet:
 
-    def pruneSynapses(cell, conn, probability, pruning_range):
+    def pruneSynapsesVol(
+            cell,
+            conn,
+            probability,
+            pruning_range
+    ):
         # Get the section
         sec = cell.secs[conn['sec']]
 
