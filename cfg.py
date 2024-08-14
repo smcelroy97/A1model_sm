@@ -145,9 +145,10 @@ cfg.synWeightFractionENGF = [0.834, 0.166]  # NGF AMPA to NMDA ratio
 cfg.useHScale = False
 cfg.gabaBtau2 = 260.9
 
-cfg.synWeightFractionThalIE = [0.9, 0.9]
+cfg.synWeightFractionThalIE = [0.9, 0.2]
 cfg.synWeightFractionThalII = [1.0, 0.0]
-
+cfg.synWeightFractionThalCtxII = [1.0]
+cfg.synWeightFractionThalCtxIE = [1.0, 0.0]
 # ------------------------------------------------------------------------------
 # Network
 # ------------------------------------------------------------------------------
@@ -234,13 +235,15 @@ cfg.ICThalprobEMatrix = cfg.ICThalprobECore
 cfg.ICThalprobIMatrix = cfg.ICThalprobICore
 
 # these params control cochlea -> Thalamus
-cfg.cochThalweightECore = 1.0 #0.225  #1.0  # 0.1125
+cfg.cochThalweightECore = 0.225  #1.0  # 0.1125
 cfg.cochThalprobECore = 0.3
 cfg.cochThalweightICore = 0.0675
-cfg.cochThalprobICore = 0.5 # 0.15 #0.5
+cfg.cochThalprobICore =  0.15 #0.5
 cfg.cochThalMatrixCoreFactor = 0.1
-cfg.cochThalprobEMatrix = cfg.cochThalprobECore #0.0375
-cfg.cochThalprobIMatrix = cfg.cochThalprobICore #0.009375
+cfg.cochthalweightEMatrix = 0.0375
+cfg.cochthalweightIMatrix = 0.009375
+cfg.cochThalprobEMatrix = 0.0375
+cfg.cochThalprobIMatrix = 0.009375
 cfg.cochThalFreqRange = [750, 1250]
 
 
@@ -255,7 +258,7 @@ cfg.thalL4NGF = 1.0
 cfg.L3L3scaleFactor = 1.0
 cfg.CT6ScaleFactor = 1.0
 
-cfg.thalIIScale = 1.5 # 1.0
+cfg.thalIIScale = 1.0 #1.5 # 1.0
 
 cfg.thalL1NGF = 1.0
 cfg.ENGF1 = 1.0
@@ -323,6 +326,8 @@ if cfg.cochlearThalInput:
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore
     cfg.cochlearThalInput['weightICore'] = cfg.cochThalweightICore
+    cfg.cochlearThalInput['weightEMatrix'] = cfg.cochthalweightEMatrix
+    cfg.cochlearThalInput['weightIMatrix'] = cfg.cochthalweightIMatrix
     cfg.cochlearThalInput['probEMatrix'] = cfg.cochThalprobEMatrix
     cfg.cochlearThalInput['probIMatrix'] = cfg.cochThalprobIMatrix
     cfg.cochlearThalInput['MatrixCoreFactor'] = cfg.cochThalMatrixCoreFactor
