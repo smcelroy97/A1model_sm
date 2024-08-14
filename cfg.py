@@ -169,19 +169,19 @@ cfg.scaleDensity = 1.0  # Should be 1.0 unless need lower cell density for test 
 cfg.addConn = 1.0
 cfg.wireCortex = 1.0
 
-cfg.EEGain = 0.75
-cfg.EIGain = 1.5
-cfg.IEGain = 1.5
-cfg.IIGain = 1.0
-cfg.L6IEGain = 1.0
+# cfg.EEGain = 0.75
+# cfg.EIGain = 1.5
+# cfg.IEGain = 1.5
+# cfg.IIGain = 1.0
+# cfg.L6IEGain = 1.0
 
  # My old params don't delete
 # cfg.EEGain = 1.18702850562324
-# cfg.EEGain = 1.1
+cfg.EEGain = 1.1
 # cfg.EIGain = 1.6313576020869256
-# # cfg.IEGain = 1.716277020224909
-# cfg.IEGain = 2.06
-# cfg.IIGain = 1.4102431748127964
+# cfg.IEGain = 1.716277020224909
+cfg.IEGain = 2.06
+cfg.IIGain = 1.4102431748127964
 
 
 ## E/I->E/I layer weights (L1-3, L4, L5, L6)
@@ -234,13 +234,13 @@ cfg.ICThalprobEMatrix = cfg.ICThalprobECore
 cfg.ICThalprobIMatrix = cfg.ICThalprobICore
 
 # these params control cochlea -> Thalamus
-cfg.cochThalweightECore = 0.225  #1.0  # 0.1125
+cfg.cochThalweightECore = 1.0 #0.225  #1.0  # 0.1125
 cfg.cochThalprobECore = 0.3
 cfg.cochThalweightICore = 0.0675
-cfg.cochThalprobICore = 0.15 #0.5
+cfg.cochThalprobICore = 0.5 # 0.15 #0.5
 cfg.cochThalMatrixCoreFactor = 0.1
-cfg.cochThalprobEMatrix = 0.0375
-cfg.cochThalprobIMatrix = 0.009375
+cfg.cochThalprobEMatrix = cfg.cochThalprobECore #0.0375
+cfg.cochThalprobIMatrix = cfg.cochThalprobICore #0.009375
 cfg.cochThalFreqRange = [750, 1250]
 
 
@@ -255,7 +255,7 @@ cfg.thalL4NGF = 1.0
 cfg.L3L3scaleFactor = 1.0
 cfg.CT6ScaleFactor = 1.0
 
-cfg.thalIIScale = 1.0
+cfg.thalIIScale = 1.5 # 1.0
 
 cfg.thalL1NGF = 1.0
 cfg.ENGF1 = 1.0
