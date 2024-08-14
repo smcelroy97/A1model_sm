@@ -55,7 +55,7 @@ def assr_batch_grid(filename):
     initCfg['saveCellConns'] = False
 
     # from prev - best of 50% cell density
-    updateParams = ['EIGain', 'IEGain', 'IIGain', 'EEGain',
+    updateParams = [#'EIGain', 'IEGain', 'IIGain', 'EEGain',
                     ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'),
                     ('EICellTypeGain', 'VIP'),('EICellTypeGain', 'NGF'),
                     ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'),
@@ -290,8 +290,8 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'SamParamTest0814'
+    b.batchLabel = 'SamParamTest0814A'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_sge')
+    setRunCfg(b, 'hpc_slurm_Expanse')
     b.run() # run batch
