@@ -169,18 +169,19 @@ cfg.scaleDensity = 1.0  # Should be 1.0 unless need lower cell density for test 
 cfg.addConn = 1.0
 cfg.wireCortex = 1.0
 
-# cfg.EEGain = 0.75
-# cfg.EIGain = 1.5
-# cfg.IEGain = 1.5
-# cfg.IIGain = 1.0
-# cfg.L6IEGain = 1.0
+cfg.EEGain = 0.75
+cfg.EIGain = 1.5
+cfg.IEGain = 1.5
+cfg.IIGain = 1.0
+cfg.L6IEGain = 1.0
 
+ # My old params don't delete
 # cfg.EEGain = 1.18702850562324
-cfg.EEGain = 1.1
-cfg.EIGain = 1.6313576020869256
-# cfg.IEGain = 1.716277020224909
-cfg.IEGain = 2.06
-cfg.IIGain = 1.4102431748127964
+# cfg.EEGain = 1.1
+# cfg.EIGain = 1.6313576020869256
+# # cfg.IEGain = 1.716277020224909
+# cfg.IEGain = 2.06
+# cfg.IIGain = 1.4102431748127964
 
 
 ## E/I->E/I layer weights (L1-3, L4, L5, L6)
@@ -219,7 +220,7 @@ cfg.intraThalamicGain = 1.0
 cfg.corticoThalamicGain = 1.0
 cfg.CTGainThalI = 1.0
 
-cfg.ThalIEscaleFactor = 0.7
+cfg.ThalIEscaleFactor = 1.0 # 0.7
 
 # these params control IC -> Thalamic Core
 cfg.ICThalweightECore = 0.8350476447841453
@@ -247,7 +248,7 @@ cfg.cochThalFreqRange = [750, 1250]
 # Control the strength of thalamic inputs to different subpopulations
 cfg.thalL4PV = 0.21367245896786016
 cfg.thalL4SOM = 0.24260966747847523
-cfg.thalL4E = 1.9540886147587417
+cfg.thalL4E = 2.0 #1.9540886147587417
 
 cfg.thalL4VIP = 1.0
 cfg.thalL4NGF = 1.0
@@ -306,8 +307,8 @@ cfg.rateBkg = {'exc': 40, 'inh': 40}
 # options to provide external sensory input
 # cfg.randomThalInput = True  # provide random bkg inputs spikes (NetStim) to thalamic populations
 
-cfg.EbkgThalamicGain = 3.92
-cfg.IbkgThalamicGain = 3.92
+cfg.EbkgThalamicGain = 0.392
+cfg.IbkgThalamicGain = 1.96
 
 cfg.NGF6bkgGain = 1.0
 
