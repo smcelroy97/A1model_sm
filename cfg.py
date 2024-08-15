@@ -23,7 +23,7 @@ cfg: SimConfig = specs.SimConfig()
 # ------------------------------------------------------------------------------
 # Run parameters
 # ------------------------------------------------------------------------------
-cfg.duration = 8e3  # Duration of the sim, in ms
+cfg.duration = 6500  # Duration of the sim, in ms
 cfg.dt = 0.05  # Internal Integration Time Step
 cfg.verbose = 0  # Show detailed messages
 cfg.progressBar = 0  # even more detailed message
@@ -323,7 +323,7 @@ cfg.cochlearThalInput = True
 
 
 if cfg.cochlearThalInput:
-    cfg.cochlearThalInput = {"lonset" : [0], "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessScale": 1,
+    cfg.cochlearThalInput = {"lonset" : [0.0, 2000.0, 2624.5, 3249.0, 3873.5, 4498.0, 5122.5, 5747.0], "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessScale": 1,
                              "lfnwave": ["wav/silence6.5s.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav"]}
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
