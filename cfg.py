@@ -97,9 +97,9 @@ cfg.saveCellConns = False
 # #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
 # cfg.analysis['plotTraces'] = {'include': ['TC', 'IRE'],  'timeRange': [0, cfg.duration], 'oneFigPer': 'trace',
 # 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]
-# cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True,
-#                               'timeRange': [0, cfg.duration], 'figSize': (25, 25), 'plotRates': False,
-#                               'markerSize': 1}   # Plot a raster
+cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True,
+                              'timeRange': [0, cfg.duration], 'figSize': (25, 25), 'plotRates': False,
+                              'markerSize': 1}   # Plot a raster
 # cfg.analysis['plotConn'] = {'includePost': ['IRE', 'IREM'], 'saveFig': True}
 # cfg.analysis['plotSpikeStats'] = {'stats': ['isicv', 'rate'], 'figSize': (6, 12), 'dpi': 300, 'saveFig': True}
 
@@ -153,7 +153,7 @@ cfg.synWeightFractionThalCtxIE = [1.0, 0.0]
 # Network
 # ------------------------------------------------------------------------------
 # These values taken from M1 cfg (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
-cfg.singleCellPops = True
+cfg.singleCellPops = False
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
 cfg.scale = 1.0  # Is this what should be used?
@@ -243,8 +243,8 @@ cfg.cochThalprobECore = 0.3
 cfg.cochThalweightICore = 0.0675
 cfg.cochThalprobICore =  0.15 #0.5
 cfg.cochThalMatrixCoreFactor = 0.1
-cfg.cochthalweightEMatrix = 0.0375
-cfg.cochthalweightIMatrix = 0.009375
+cfg.cochthalweightEMatrix = 0.1125
+cfg.cochthalweightIMatrix = 0.0675
 cfg.cochThalprobEMatrix = 0.0375
 cfg.cochThalprobIMatrix = 0.009375
 cfg.cochThalFreqRange = [750, 1250]

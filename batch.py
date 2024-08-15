@@ -28,7 +28,7 @@ def assr_batch_grid(filename):
 
     # #### SET weights####
     # params['cochlearThalInput', 'lfnwave'] = [['wav/silence6s.wav'], ['wav/100msClick624ISIBestFreq.wav']]
-    params['thalamicIIGain'] = [1.0, 1.25, 1.5, 3000]
+    params['thalamicIIGain'] = [1.0, 1.25, 1.5]
     # params['IELayerGain', '6'] = [4.9]
     # params['EELayerGain', '6'] = [0.6]
     # params['EILayerGain', '4'] = [0.7]
