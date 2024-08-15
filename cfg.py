@@ -261,7 +261,7 @@ cfg.thalL4NGF = 1.0
 cfg.L3L3scaleFactor = 1.0
 cfg.CT6ScaleFactor = 1.0
 
-cfg.thalIIScale = 1.0 #1.5 # 1.0
+
 
 cfg.thalL1NGF = 1.0
 cfg.ENGF1 = 1.0

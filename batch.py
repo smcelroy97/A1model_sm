@@ -46,11 +46,10 @@ def assr_batch_grid(filename):
     initCfg = {}
 
     # from prev - best of 50% cell density
-    updateParams = [#'EIGain', 'IEGain', 'IIGain', 'EEGain',
-                    ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'),
-                    ('EICellTypeGain', 'VIP'),('EICellTypeGain', 'NGF'),
-                    ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'),
-                    ('IECellTypeGain', 'NGF'),
+    updateParams = ['EIGain', 'IEGain', 'IIGain', 'EEGain',
+                    ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'),('EICellTypeGain', 'VIP'),
+                    ('EICellTypeGain', 'NGF'),('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'),
+                    ('IECellTypeGain', 'VIP'),('IECellTypeGain', 'NGF'),
                     ('EILayerGain', '1'), ('IILayerGain', '1'),
                     ('EELayerGain', '2'), ('EILayerGain', '2'),  ('IELayerGain', '2'), ('IILayerGain', '2'),
                     ('EELayerGain', '3'), ('EILayerGain', '3'), ('IELayerGain', '3'), ('IILayerGain', '3'),
