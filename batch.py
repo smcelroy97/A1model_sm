@@ -35,6 +35,12 @@ def assr_batch_grid(filename):
     # params['IILayerGain', '4'] = [1.08]
 
     # --------------------------------------------------------
+    
+    # grouped params
+    groupedParams = []
+
+    # initial config
+    initCfg = {}
 
     # from prev - best of 50% cell density
     updateParams = [#'EIGain', 'IEGain', 'IIGain', 'EEGain',
