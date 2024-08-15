@@ -139,8 +139,11 @@ cfg.synWeightFractionEI = [0.5, 0.5]  # E->I AMPA to NMDA ratio
 cfg.synWeightFractionIE = [0.9, 0.1]
 cfg.synWeightFractionII = [1.0]
 cfg.synWeightFractionEI_CustomCort = [0.5, 0.5]  # E->I AMPA to NMDA ratio custom for cortex NMDA manipulation
-cfg.synWeightFractionSOME = [0.9, 0.5]  # SOM -> E GABAASlow to GABAB ratio
+cfg.synWeightFractionSOME = [0.9, 0.2]  # SOM -> E GABAASlow to GABAB ratio
+cfg.synweightFractionSOMI = [0.9, 0.1]  # SOM -> I GABAASlow to GABAB ratio
 cfg.synWeightFractionNGF = [0.5, 0.9]  # NGF GABAA to GABAB ratio
+cfg.synWeightFractionNGFE = [0.5, 1.0]
+cfg.synWeightFractionNGFI = [1.0]
 cfg.synWeightFractionENGF = [0.834, 0.166]  # NGF AMPA to NMDA ratio
 cfg.useHScale = False
 cfg.gabaBtau2 = 260.9
@@ -206,7 +209,7 @@ cfg.EIPopGain = {"NGF1": 1.0, "SOM2": 1.0, "PV2": 1.0, "VIP2": 1.0, "NGF2": 1.0,
 
 ## E->I by target cell type
 cfg.EICellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0,
-                      'NGF': 0.1}
+                      'NGF': 1.0}
 
 # I->E by target cell type
 cfg.IECellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0, 'NGF': 1.0}
