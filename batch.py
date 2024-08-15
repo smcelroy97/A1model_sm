@@ -27,32 +27,13 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     # #### SET weights####
-    params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
+    params['cochlearThalInput', 'lfnwave'] = [['wav/silence6s.wav'], ['wav/100msClick624ISIBestFreq.wav']]
     # params['IELayerGain', '6'] = [4.9]
     # params['EELayerGain', '6'] = [0.6]
     # params['EILayerGain', '4'] = [0.7]
     # params['IILayerGain', '4'] = [1.08]
 
-    #### GROUPED PARAMS ####
-    groupedParams = []
-
     # --------------------------------------------------------
-    # initial config
-
-    initCfg = {} # set default options from prev sim
-
-    initCfg['duration'] = 6000 #11500
-    initCfg['printPopAvgRates'] = [0, initCfg['duration']]
-    initCfg['scaleDensity'] = 1.0
-    initCfg['recordStep'] = 0.05
-
-    # SET SEEDS FOR CONN AND STIM
-    initCfg[('seeds', 'conn')] = 0
-
-    ### OPTION TO RECORD EEG / DIPOLE ###
-    initCfg['recordDipole'] = True
-    initCfg['saveCellSecs'] = False
-    initCfg['saveCellConns'] = False
 
     # from prev - best of 50% cell density
     updateParams = [#'EIGain', 'IEGain', 'IIGain', 'EEGain',
@@ -192,7 +173,6 @@ def evolRates(filename):
     fitnessFuncArgs['maxFitness'] = 1000
 
     def fitnessFunc(simData, **kwargs):
-        import numpy as np
         pops = kwargs['pops']
         maxFitness = kwargs['maxFitness']
         popFitness = [min(np.exp(abs(v['target'] - simData['popRates'][k]) / v['width']), maxFitness)

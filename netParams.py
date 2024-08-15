@@ -459,20 +459,24 @@ def wireThal ():
   # set intrathalamic connections
   for pre in TEpops+TIpops:
       for post in TEpops+TIpops:
-          scaleFactor = 1.0
+          gain=cfg.intraThalamicGain
           if post in pmat[pre]:
               # for syns use ESynMech, ThalIESynMech and ThalIISynMech
               if pre in TEpops:     # E->E/I
                   syn = ESynMech
                   synWeightFactor = cfg.synWeightFractionEE
-              elif post in TEpops:  # I->E
-                  syn = ThalIESynMech
-                  synWeightFactor = cfg.synWeightFractionThalIE
-                  scaleFactor = cfg.ThalIEscaleFactor
+                  if post in TEpops:
+                     gain *= cfg.intraThalamicEEGain
+                  else:
+                      gain = cfg.intraThalamicEIGain
+              elif post in TEpops: # I->E
+                    syn = ThalIESynMech
+                    synWeightFactor = cfg.synWeightFractionThalIE
+                    gain *= cfg.intraThalamicIEGain
               else:                  # I->I
                   syn = ThalIISynMech
                   synWeightFactor = cfg.synWeightFractionThalII
-                  scaleFactor = cfg.thalIIScale
+                  gain *= cfg.intraThalamicIIGain
               # use spatially dependent wiring between thalamic core excitatory neurons
               if (pre == 'TC' and (post == 'TC' or post == 'HTC')) or (pre == 'HTC' and (post == 'TC' or post == 'HTC')):
                 prob = '%f * exp(-dist_x/%f)' % (pmat[pre][post], ThalamicCoreLambda)
@@ -483,7 +487,7 @@ def wireThal ():
                   'postConds': {'pop': post},
                   'synMech': syn,
                   'probability': prob,
-                  'weight': wmat[pre][post] * cfg.intraThalamicGain * scaleFactor,
+                  'weight': wmat[pre][post] * cfg.intraThalamicGain,
                   'synMechWeightFactor': synWeightFactor,
                   'delay': 'defaultDelay+dist_3D/propVelocity',
                   'synsPerConn': 1,

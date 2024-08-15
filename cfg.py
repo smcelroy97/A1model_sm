@@ -78,7 +78,7 @@ cfg.recordDipole = False
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = 'CT6Tune0716'
+cfg.simLabel = 'newBatchTest0815'
 cfg.saveFolder = 'data/' + cfg.simLabel  # Set file output name
 cfg.savePickle = True  # Save pkl file
 cfg.saveJson = False  # Save json file
@@ -97,11 +97,11 @@ cfg.saveCellConns = False
 # #[(pop,0) for pop in alltypes]		## Seen in M1 cfg.py (line 68)
 # cfg.analysis['plotTraces'] = {'include': ['TC', 'IRE'],  'timeRange': [0, cfg.duration], 'oneFigPer': 'trace',
 # 'overlay': True, 'saveFig': True, 'showFig': False, 'figSize':(12,8)} #[(pop,0) for pop in alltypes]
-cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True,
-                              'timeRange': [0, cfg.duration], 'figSize': (25, 25), 'plotRates': False,
-                              'markerSize': 1}   # Plot a raster
+# cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True,
+#                               'timeRange': [0, cfg.duration], 'figSize': (25, 25), 'plotRates': False,
+#                               'markerSize': 1}   # Plot a raster
 # cfg.analysis['plotConn'] = {'includePost': ['IRE', 'IREM'], 'saveFig': True}
-cfg.analysis['plotSpikeStats'] = {'stats': ['isicv', 'rate'], 'figSize': (6, 12), 'dpi': 300, 'saveFig': True}
+# cfg.analysis['plotSpikeStats'] = {'stats': ['isicv', 'rate'], 'figSize': (6, 12), 'dpi': 300, 'saveFig': True}
 
 # cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4),
 # 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
@@ -153,7 +153,7 @@ cfg.synWeightFractionThalCtxIE = [1.0, 0.0]
 # Network
 # ------------------------------------------------------------------------------
 # These values taken from M1 cfg (https://github.com/Neurosim-lab/netpyne/blob/development/examples/M1detailed/cfg.py)
-cfg.singleCellPops = False
+cfg.singleCellPops = True
 cfg.singlePop = ''
 cfg.removeWeightNorm = False
 cfg.scale = 1.0  # Is this what should be used?
@@ -221,7 +221,10 @@ cfg.intraThalamicGain = 1.0
 cfg.corticoThalamicGain = 1.0
 cfg.CTGainThalI = 1.0
 
-cfg.ThalIEscaleFactor = 1.0 # 0.7
+cfg.intraThalamicEEGain = 1.0
+cfg.intraThalamicEIGain = 1.0
+cfg.intraThalamicIEGain = 1.0
+cfg.intraThalamicIIGain = 1.0
 
 # these params control IC -> Thalamic Core
 cfg.ICThalweightECore = 0.8350476447841453
@@ -321,7 +324,7 @@ cfg.cochlearThalInput = True
 
 if cfg.cochlearThalInput:
     cfg.cochlearThalInput = {"lonset" : [0], "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessScale": 1,
-                             "lfnwave": ["silence6s.wav"]}
+                             "lfnwave": ["wav/silence6.5s.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav"]}
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore
