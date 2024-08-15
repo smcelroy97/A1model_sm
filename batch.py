@@ -28,7 +28,7 @@ def assr_batch_grid(filename):
 
     # #### SET weights####
     # params['cochlearThalInput', 'lfnwave'] = [['wav/silence6s.wav'], ['wav/100msClick624ISIBestFreq.wav']]
-    params['thalamicIIGain'] = [1.0, 1.25, 1.5]
+    params['intrathalamicIIGain'] = [1.0, 1.25, 1.5]
     # params['IELayerGain', '6'] = [4.9]
     # params['EELayerGain', '6'] = [0.6]
     # params['EILayerGain', '4'] = [0.7]
@@ -38,9 +38,6 @@ def assr_batch_grid(filename):
     
     # grouped params
     groupedParams = []
-
-    # initial config
-    initCfg = {}
 
     # initial config
     initCfg = {}
@@ -67,7 +64,7 @@ def assr_batch_grid(filename):
             initCfg.update({p: cfgLoad[p]})
 
     # good thal params for 100% cell density
-    updateParams2 = ['thalamoCorticalGain', 'intraThalamicGain', 'EbkgThalamicGain', 'IbkgThalamicGain', 'wmat']
+    updateParams2 = ['wmat'] # thalamoCorticalGain', 'intraThalamicGain', 'EbkgThalamicGain', 'IbkgThalamicGain',
 
     for p in updateParams2:
         if isinstance(p, tuple):
@@ -279,7 +276,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'SamWavTest0815'
+    b.batchLabel = 'SamWavTest0815A'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
