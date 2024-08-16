@@ -319,7 +319,7 @@ cfg.cochlearThalInput = True
 
 if cfg.cochlearThalInput:
     cfg.cochlearThalInput = {"lonset" : [0.0, 2000.0, 2624.5, 3249.0, 3873.5, 4498.0, 5122.5, 5747.0], "numCenterFreqs": 100, "freqRange":[125, 20000], "loudnessScale": 1,
-                             "lfnwave": ["wav/silence6.5s.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav","wav/1043Hz_sin.wav"]}
+                             "lfnwave": ["wav/100msClick624ISIBestFreq.wav"]}
     cfg.cochlearThalInput['probECore'] = cfg.cochThalprobECore
     cfg.cochlearThalInput['weightECore'] = cfg.cochThalweightECore
     cfg.cochlearThalInput['probICore'] = cfg.cochThalprobICore
