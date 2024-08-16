@@ -28,7 +28,7 @@ params = {'EEGain' : np.linspace(0.5, 1.5, 2),
 #                 'EELayerGain.5B', 'EILayerGain.5B', 'IELayerGain.5B', 'IILayerGain.5B',
 #                 'EELayerGain.6', 'EILayerGain.6', 'IELayerGain.6', 'IILayerGain.6'}
 
-updateParams = [  # 'EIGain', 'IEGain', 'IIGain', 'EEGain',
+updateParams = ['IIGain', 'EIGain',
        ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'),
        ('EICellTypeGain', 'VIP'), ('EICellTypeGain', 'NGF'),
        ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'),
