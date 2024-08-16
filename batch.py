@@ -26,13 +26,8 @@ def assr_batch_grid(filename):
         cfgLoad = json.load(f)['simConfig']
     cfgLoad2 = cfgLoad
 
-    # #### SET weights####
-    # params['cochlearThalInput', 'lfnwave'] = [['wav/silence6s.wav'], ['wav/100msClick624ISIBestFreq.wav']]
-    params['intraThalamicIIGain'] = [1.0, 1.25, 1.5]
-    # params['IELayerGain', '6'] = [4.9]
-    # params['EELayerGain', '6'] = [0.6]
-    # params['EILayerGain', '4'] = [0.7]
-    # params['IILayerGain', '4'] = [1.08]
+    #### SET weights####
+    params['EEGain'] = [0.75, 0.85, 0.95, 1.05, 1.15, 1.25, 1.35, 1.45, 1.5]
 
     # --------------------------------------------------------
     
@@ -276,8 +271,8 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'SamWavTest0815A'
+    b.batchLabel = 'EEGainTune0816'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_sge')
+    setRunCfg(b, 'hpc_slurm_Expanse')
     b.run() # run batch
