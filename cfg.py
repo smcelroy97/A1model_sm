@@ -140,11 +140,7 @@ cfg.synWeightFractionIE = [0.9, 0.1]
 cfg.synWeightFractionII = [1.0]
 cfg.synWeightFractionEI_CustomCort = [0.5, 0.5]  # E->I AMPA to NMDA ratio custom for cortex NMDA manipulation
 cfg.synWeightFractionSOME = [0.9, 0.2]  # SOM -> E GABAASlow to GABAB ratio
-<<<<<<< HEAD
 cfg.synWeightFractionSOMI = [0.9, 0.1]  # SOM -> I GABAASlow to GABAB ratio
-=======
-cfg.synweightFractionSOMI = [0.9, 0.1]  # SOM -> I GABAASlow to GABAB ratio
->>>>>>> e00d99692ca63a03adbec7105f8f1a6857fe01c4
 cfg.synWeightFractionNGF = [0.5, 0.9]  # NGF GABAA to GABAB ratio
 cfg.synWeightFractionNGFE = [0.5, 1.0]
 cfg.synWeightFractionNGFI = [1.0]
