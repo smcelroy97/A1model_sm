@@ -27,7 +27,11 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     #### SET weights####
-    params['EEGain'] = [0.75, 0.85, 0.95, 1.05, 1.15, 1.25, 1.35, 1.45, 1.5]
+    # params['CT6ScaleFactor'] = [0.4]
+    params['IELayerGain', '6'] = [4.9]
+    params['EELayerGain', '6'] = [0.6]
+    params['EILayerGain', '4'] = [0.7]
+    params['IILayerGain', '4'] = [1.08]
 
     # --------------------------------------------------------
     
@@ -38,17 +42,17 @@ def assr_batch_grid(filename):
     initCfg = {}
 
     # from prev - best of 50% cell density
-    updateParams = ['EIGain', 'IEGain', 'IIGain', 'EEGain',
+    updateParams = ['IEGain', 'IIGain',
                     ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'),('EICellTypeGain', 'VIP'),
                     ('EICellTypeGain', 'NGF'),('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'),
                     ('IECellTypeGain', 'VIP'),('IECellTypeGain', 'NGF'),
                     ('EILayerGain', '1'), ('IILayerGain', '1'),
                     ('EELayerGain', '2'), ('EILayerGain', '2'),  ('IELayerGain', '2'), ('IILayerGain', '2'),
                     ('EELayerGain', '3'), ('EILayerGain', '3'), ('IELayerGain', '3'), ('IILayerGain', '3'),
-                    ('EELayerGain', '4'), ('EILayerGain', '4'), ('IELayerGain', '4'), ('IILayerGain', '4'),
+                    ('EELayerGain', '4'),('IELayerGain', '4'),
                     ('EELayerGain', '5A'), ('EILayerGain', '5A'), ('IELayerGain', '5A'), ('IILayerGain', '5A'),
                     ('EELayerGain', '5B'), ('EILayerGain', '5B'), ('IELayerGain', '5B'), ('IILayerGain', '5B'),
-                    ('EELayerGain', '6'), ('EILayerGain', '6'), ('IELayerGain', '6'), ('IILayerGain', '6')]
+                    ('EILayerGain', '6'), ('IILayerGain', '6')]
                     # Things removed for tuning, put back when finished, or update value:
                     # 'EIGain', 'IEGain', 'IIGain', 'EEGain', ('IELayerGain', '6') ('EILayerGain', '4') ('IILayerGain', '4')
 
@@ -271,7 +275,7 @@ if __name__ == '__main__':
     b = assr_batch_grid('data/v34_batch25/trial_2142/trial_2142_cfg.json')
     # b = evolRates('data/v34_batch25/trial_2142/trial_2142_cfg.json')
 
-    b.batchLabel = 'EEGainTune0816'
+    b.batchLabel = 'Me_Sam0816'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_slurm_Expanse')
