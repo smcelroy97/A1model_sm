@@ -86,7 +86,7 @@ cfg.saveDataInclude = ['simData', 'simConfig', 'net']
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
 cfg.saveCellSecs = False
-cfg.saveCellConns = False
+cfg.saveCellConns = True
 
 # ------------------------------------------------------------------------------
 # Analysis and plotting
