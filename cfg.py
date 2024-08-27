@@ -86,7 +86,7 @@ cfg.saveDataInclude = ['simData', 'simConfig', 'net']
 cfg.backupCfgFile = None
 cfg.gatherOnlySimData = False
 cfg.saveCellSecs = False
-cfg.saveCellConns = True
+cfg.saveCellConns = False
 
 # ------------------------------------------------------------------------------
 # Analysis and plotting
@@ -175,8 +175,8 @@ cfg.wireCortex = 1.0
 
 # cfg.EEGain = 0.75
 # cfg.EIGain = 1.5
-# cfg.IEGain = 1.5
-# cfg.IIGain = 1.0
+cfg.IEGain = 1.5
+cfg.IIGain = 1.0
 
 cfg.EEGain = 1.1
 cfg.EIGain = 1.6313576020869256
