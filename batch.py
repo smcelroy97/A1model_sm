@@ -26,47 +26,32 @@ def assr_batch_grid(filename):
         cfgLoad = json.load(f)['simConfig']
     cfgLoad2 = cfgLoad
 
-    # #### SET weights####
-    params['cochlearThalInput', 'lfnwave'] = [['silence6s.wav'], ['100msClick624ISIBestFreq.wav']]
-    # params['IELayerGain', '6'] = [4.9]
-    # params['EELayerGain', '6'] = [0.6]
-    # params['EILayerGain', '4'] = [0.7]
-    # params['IILayerGain', '4'] = [1.08]
-
-    #### GROUPED PARAMS ####
-    groupedParams = []
+    #### SET weights####
+    params['IELayerGain', '6'] = [4.9]
+    params['EELayerGain', '6'] = [0.6]
+    params['EILayerGain', '4'] = [0.7]
+    params['IILayerGain', '4'] = [1.08]
 
     # --------------------------------------------------------
+    
+    # grouped params
+    groupedParams = []
+
     # initial config
-
-    initCfg = {} # set default options from prev sim
-
-    initCfg['duration'] = 6000 #11500
-    initCfg['printPopAvgRates'] = [0, initCfg['duration']]
-    initCfg['scaleDensity'] = 1.0
-    initCfg['recordStep'] = 0.05
-
-    # SET SEEDS FOR CONN AND STIM
-    initCfg[('seeds', 'conn')] = 0
-
-    ### OPTION TO RECORD EEG / DIPOLE ###
-    initCfg['recordDipole'] = True
-    initCfg['saveCellSecs'] = False
-    initCfg['saveCellConns'] = False
+    initCfg = {}
 
     # from prev - best of 50% cell density
-    updateParams = [#'EIGain', 'IEGain', 'IIGain', 'EEGain',
-                    ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'),
-                    ('EICellTypeGain', 'VIP'),('EICellTypeGain', 'NGF'),
-                    ('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'), ('IECellTypeGain', 'VIP'),
-                    ('IECellTypeGain', 'NGF'),
+    updateParams = ['IEGain', 'IIGain',
+                    ('EICellTypeGain', 'PV'), ('EICellTypeGain', 'SOM'),('EICellTypeGain', 'VIP'),
+                    ('EICellTypeGain', 'NGF'),('IECellTypeGain', 'PV'), ('IECellTypeGain', 'SOM'),
+                    ('IECellTypeGain', 'VIP'),('IECellTypeGain', 'NGF'),
                     ('EILayerGain', '1'), ('IILayerGain', '1'),
                     ('EELayerGain', '2'), ('EILayerGain', '2'),  ('IELayerGain', '2'), ('IILayerGain', '2'),
                     ('EELayerGain', '3'), ('EILayerGain', '3'), ('IELayerGain', '3'), ('IILayerGain', '3'),
-                    ('EELayerGain', '4'), ('EILayerGain', '4'), ('IELayerGain', '4'), ('IILayerGain', '4'),
+                    ('EELayerGain', '4'),('IELayerGain', '4'),
                     ('EELayerGain', '5A'), ('EILayerGain', '5A'), ('IELayerGain', '5A'), ('IILayerGain', '5A'),
                     ('EELayerGain', '5B'), ('EILayerGain', '5B'), ('IELayerGain', '5B'), ('IILayerGain', '5B'),
-                    ('EELayerGain', '6'), ('EILayerGain', '6'), ('IELayerGain', '6'), ('IILayerGain', '6')]
+                    ('EILayerGain', '6'), ('IILayerGain', '6')]
                     # Things removed for tuning, put back when finished, or update value:
                     # 'EIGain', 'IEGain', 'IIGain', 'EEGain', ('IELayerGain', '6') ('EILayerGain', '4') ('IILayerGain', '4')
 
@@ -77,7 +62,7 @@ def assr_batch_grid(filename):
             initCfg.update({p: cfgLoad[p]})
 
     # good thal params for 100% cell density
-    updateParams2 = ['thalamoCorticalGain', 'intraThalamicGain', 'EbkgThalamicGain', 'IbkgThalamicGain', 'wmat']
+    updateParams2 = ['wmat'] # thalamoCorticalGain', 'intraThalamicGain', 'EbkgThalamicGain', 'IbkgThalamicGain',
 
     for p in updateParams2:
         if isinstance(p, tuple):
@@ -192,7 +177,6 @@ def evolRates(filename):
     fitnessFuncArgs['maxFitness'] = 1000
 
     def fitnessFunc(simData, **kwargs):
-        import numpy as np
         pops = kwargs['pops']
         maxFitness = kwargs['maxFitness']
         popFitness = [min(np.exp(abs(v['target'] - simData['popRates'][k]) / v['width']), maxFitness)
@@ -295,3 +279,9 @@ if __name__ == '__main__':
     #
     # setRunCfg(b, 'hpc_slurm_Expanse')
     # b.run() # run batch
+
+    b.batchLabel = 'SpontOnOffFreqTest0827'
+    b.saveFolder = 'data/'+b.batchLabel
+
+    setRunCfg(b, 'hpc_sge')
+    b.run() # run batch

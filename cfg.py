@@ -23,7 +23,7 @@ cfg: SimConfig = specs.SimConfig()
 # ------------------------------------------------------------------------------
 # Run parameters
 # ------------------------------------------------------------------------------
-cfg.duration = 8e3  # Duration of the sim, in ms
+cfg.duration = 6500  # Duration of the sim, in ms
 cfg.dt = 0.05  # Internal Integration Time Step
 cfg.verbose = 0  # Show detailed messages
 cfg.progressBar = 0  # even more detailed message
@@ -78,7 +78,7 @@ cfg.recordDipole = False
 # Saving
 # ------------------------------------------------------------------------------
 
-cfg.simLabel = 'CT6Tune0716'
+cfg.simLabel = 'newBatchTest0815'
 cfg.saveFolder = 'data/' + cfg.simLabel  # Set file output name
 cfg.savePickle = True  # Save pkl file
 cfg.saveJson = False  # Save json file
@@ -100,8 +100,9 @@ cfg.saveCellConns = False
 cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True,
                               'timeRange': [0, cfg.duration], 'figSize': (25, 25), 'plotRates': False,
                               'markerSize': 1}   # Plot a raster
-# cfg.analysis['plotConn'] = {'includePost': ['IRE', 'IREM'], 'saveFig': True}
-cfg.analysis['plotSpikeStats'] = {'stats': ['isicv', 'rate'], 'figSize': (6, 12), 'dpi': 300, 'saveFig': True}
+cfg.analysis['plotConn'] = {'includePre': [cfg.allThalPops, cfg.allCorticalPops],
+                            'includePost': [cfg.allThalPops, cfg.allCorticalPops], 'saveFig': True}
+# cfg.analysis['plotSpikeStats'] = {'stats': ['isicv', 'rate'], 'figSize': (6, 12), 'dpi': 300, 'saveFig': True}
 
 # cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4),
 # 'saveData': False, 'saveFig': True, 'showFig': False} # 'PSD', 'spectrogram'
@@ -139,11 +140,13 @@ cfg.synWeightFractionEI = [0.5, 0.5]  # E->I AMPA to NMDA ratio
 cfg.synWeightFractionIE = [0.9, 0.1]
 cfg.synWeightFractionII = [1.0]
 cfg.synWeightFractionEI_CustomCort = [0.5, 0.5]  # E->I AMPA to NMDA ratio custom for cortex NMDA manipulation
-cfg.synWeightFractionSOME = [0.9, 0.5]  # SOM -> E GABAASlow to GABAB ratio
+cfg.synWeightFractionSOME = [0.9, 0.2]  # SOM -> E GABAASlow to GABAB ratio
+cfg.synWeightFractionSOMI = [0.9, 0.1]  # SOM -> I GABAASlow to GABAB ratio
 cfg.synWeightFractionNGF = [0.5, 0.9]  # NGF GABAA to GABAB ratio
+cfg.synWeightFractionNGFE = [0.5, 1.0]
+cfg.synWeightFractionNGFI = [1.0]
 cfg.synWeightFractionENGF = [0.834, 0.166]  # NGF AMPA to NMDA ratio
 cfg.useHScale = False
-cfg.gabaBtau2 = 260.9
 
 cfg.synWeightFractionThalIE = [0.9, 0.2]
 cfg.synWeightFractionThalII = [1.0, 0.0]
@@ -170,20 +173,13 @@ cfg.scaleDensity = 1.0  # Should be 1.0 unless need lower cell density for test 
 cfg.addConn = 1.0
 cfg.wireCortex = 1.0
 
-cfg.EEGain = 0.75
-cfg.EIGain = 1.5
+# cfg.EEGain = 0.75
+# cfg.EIGain = 1.5
 cfg.IEGain = 1.5
 cfg.IIGain = 1.0
-# cfg.L6IEGain = 1.0
 
-# My old params don't delete
-# # cfg.EEGain = 1.18702850562324
-# cfg.EEGain = 1.1
-# cfg.EIGain = 1.6313576020869256
-# # cfg.IEGain = 1.716277020224909
-# cfg.IEGain = 2.06
-# cfg.IIGain = 1.4102431748127964
-
+cfg.EEGain = 1.1
+cfg.EIGain = 1.6313576020869256
 
 ## E/I->E/I layer weights (L1-3, L4, L5, L6)
 
@@ -206,7 +202,7 @@ cfg.EIPopGain = {"NGF1": 1.0, "SOM2": 1.0, "PV2": 1.0, "VIP2": 1.0, "NGF2": 1.0,
 
 ## E->I by target cell type
 cfg.EICellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0,
-                      'NGF': 0.1}
+                      'NGF': 1.0}
 
 # I->E by target cell type
 cfg.IECellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0, 'NGF': 1.0}
@@ -221,7 +217,10 @@ cfg.intraThalamicGain = 1.0
 cfg.corticoThalamicGain = 1.0
 cfg.CTGainThalI = 1.0
 
-cfg.ThalIEscaleFactor = 1.0 # 0.7
+cfg.intraThalamicEEGain = 1.0
+cfg.intraThalamicEIGain = 1.0
+cfg.intraThalamicIEGain = 1.0
+cfg.intraThalamicIIGain = 1.0
 
 # these params control IC -> Thalamic Core
 cfg.ICThalweightECore = 0.8350476447841453
@@ -240,8 +239,8 @@ cfg.cochThalprobECore = 0.3
 cfg.cochThalweightICore = 0.0675
 cfg.cochThalprobICore =  0.15 #0.5
 cfg.cochThalMatrixCoreFactor = 0.1
-cfg.cochthalweightEMatrix = 0.0375
-cfg.cochthalweightIMatrix = 0.009375
+cfg.cochthalweightEMatrix = 0.1125
+cfg.cochthalweightIMatrix = 0.0675
 cfg.cochThalprobEMatrix = 0.0375
 cfg.cochThalprobIMatrix = 0.009375
 cfg.cochThalFreqRange = [750, 1250]
@@ -258,7 +257,7 @@ cfg.thalL4NGF = 1.0
 cfg.L3L3scaleFactor = 1.0
 cfg.CT6ScaleFactor = 1.0
 
-cfg.thalIIScale = 1.0 #1.5 # 1.0
+
 
 cfg.thalL1NGF = 1.0
 cfg.ENGF1 = 1.0

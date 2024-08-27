@@ -392,23 +392,25 @@ def wireCortex():
                         for post in Epops:
                             for l in layerGainLabels:  # used to tune each layer group independently
                                 prob = '%f * exp(-dist_2D/%f)' % (pmat[pre][post], lmat[pre][post])
-                                IEGain = cfg.IEGain
+                                synWeightFactor = cfg.synWeightFractionIE
                                 if 'SOM' in pre:
                                     synMech = SOMESynMech
+                                    synWeightFactor = cfg.synWeightFractionSOME
                                 elif 'PV' in pre:
                                     synMech = PVSynMech
                                 elif 'VIP' in pre:
                                     synMech = VIPSynMech
                                 elif 'NGF' in pre:
                                     synMech = NGFESynMech
+                                    synWeightFactor = cfg.synWeightFractionNGFE
                                 netParams.connParams['IE_' + pre + '_' + preType + '_' + post + '_' + l] = {
                                     'preConds': {'pop': pre},
                                     'postConds': {'pop': post, 'ynorm': layer[l]},
                                     'synMech': synMech,
                                     'probability': prob,
-                                    'weight': wmat[pre][post] * IEGain * cfg.IECellTypeGain[preType] *
+                                    'weight': wmat[pre][post] * cfg.IEGain * cfg.IECellTypeGain[preType] *
                                               cfg.IELayerGain[l],
-                                    'synMechWeightFactor': cfg.synWeightFractionIE,
+                                    'synMechWeightFactor': synWeightFactor,
                                     'delay': 'defaultDelay+dist_3D/propVelocity',
                                     'synsPerConn': 1,
                                     'sec': 'proximal'}
@@ -420,21 +422,24 @@ def wireCortex():
                 for post in Ipops:
                     for l in layerGainLabels:
                         prob = '%f * exp(-dist_2D/%f)' % (pmat[pre][post], lmat[pre][post])
+                        synWeightFactor = cfg.synWeightFractionII
                         if 'SOM' in pre:
                             synMech = SOMISynMech
+                            synWeightFactor = cfg.synWeightFractionSOMI
                         elif 'PV' in pre:
                             synMech = PVSynMech
                         elif 'VIP' in pre:
                             synMech = VIPSynMech
                         elif 'NGF' in pre:
                             synMech = NGFISynMech
+                            synWeightFactor = cfg.synWeightFractionNGFI
                         netParams.connParams['II_' + pre + '_' + post + '_' + l] = {
                             'preConds': {'pop': pre},
                             'postConds': {'pop': post, 'ynorm': layer[l]},
                             'synMech': synMech,
                             'probability': prob,
                             'weight': wmat[pre][post] * cfg.IIGain * cfg.IILayerGain[l],
-                            'synMechWeightFactor': cfg.synWeightFractionII,
+                            'synMechWeightFactor': synWeightFactor,
                             'delay': 'defaultDelay+dist_3D/propVelocity',
                             'synsPerConn': 1,
                             'sec': 'proximal'}
@@ -459,20 +464,24 @@ def wireThal ():
   # set intrathalamic connections
   for pre in TEpops+TIpops:
       for post in TEpops+TIpops:
-          scaleFactor = 1.0
+          gain=cfg.intraThalamicGain
           if post in pmat[pre]:
               # for syns use ESynMech, ThalIESynMech and ThalIISynMech
               if pre in TEpops:     # E->E/I
                   syn = ESynMech
                   synWeightFactor = cfg.synWeightFractionEE
-              elif post in TEpops:  # I->E
-                  syn = ThalIESynMech
-                  synWeightFactor = cfg.synWeightFractionThalIE
-                  scaleFactor = cfg.ThalIEscaleFactor
+                  if post in TEpops:
+                     gain *= cfg.intraThalamicEEGain
+                  else:
+                      gain = cfg.intraThalamicEIGain
+              elif post in TEpops: # I->E
+                    syn = ThalIESynMech
+                    synWeightFactor = cfg.synWeightFractionThalIE
+                    gain *= cfg.intraThalamicIEGain
               else:                  # I->I
                   syn = ThalIISynMech
                   synWeightFactor = cfg.synWeightFractionThalII
-                  scaleFactor = cfg.thalIIScale
+                  gain *= cfg.intraThalamicIIGain
               # use spatially dependent wiring between thalamic core excitatory neurons
               if (pre == 'TC' and (post == 'TC' or post == 'HTC')) or (pre == 'HTC' and (post == 'TC' or post == 'HTC')):
                 prob = '%f * exp(-dist_x/%f)' % (pmat[pre][post], ThalamicCoreLambda)
@@ -483,7 +492,7 @@ def wireThal ():
                   'postConds': {'pop': post},
                   'synMech': syn,
                   'probability': prob,
-                  'weight': wmat[pre][post] * cfg.intraThalamicGain * scaleFactor,
+                  'weight': wmat[pre][post] * gain,
                   'synMechWeightFactor': synWeightFactor,
                   'delay': 'defaultDelay+dist_3D/propVelocity',
                   'synsPerConn': 1,

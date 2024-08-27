@@ -11,13 +11,13 @@ matplotlib.use("MacOSX")
 from matplotlib import pyplot as plt
 from lfpykit.eegmegcalc import NYHeadModel
 
-stim_on = 3000  # Define onset of stimulus if necessary
+stim_on = 2000  # Define onset of stimulus if necessary
 # calcEEG = {'start': 1000, 'stop': 6000}
 # filter = {'lowCut':2, 'hiCut': 12}
 # plotERP = {'useFilter': True}
 # plotSpectrogram = {'useFilter': False}
 # plotPSD = {'useFilter': True}
-# plotRaster = {'timeRange': [0, 6000]}
+plotRaster = {'timeRange': [0, 6000]}
 # PSDSpect = {'timeRange': [3000, 4000], 'useLFP': False, 'useCSD': True}
 plotMUA = {'populations': ['TC', 'IRE', 'ITP4', 'ITS4'], 'stimDur': 100}
 
@@ -26,12 +26,12 @@ filter = False
 plotERP = False
 plotSpectrogram = False
 plotPSD = False
-plotRaster = False
+# plotRaster = False
 PSDSpect = False
 # plotMUA = False
 
 
-batch = 'InputTest0813'  # Name of batch for fig saving
+batch = 'SamWavTest0815A'  # Name of batch for fig saving
 
 # Load sim EEG data
 base_dir = '/Users/scoot/A1Scz/A1_sim_data/' + batch + '/'  # Define dir from saved data dir
@@ -119,7 +119,7 @@ for file in os.listdir(base_dir):
         # Plot Raster
         if plotRaster:
                 sim.analysis.plotRaster(
-                    include      = [sim.cfg.allThalPops + sim.cfg.allCorticalPops],
+                    include      = [sim.cfg.allThalPops + sim.cfg.allCorticalPops + ['cochlea']],
                     orderInverse = True,
                     timeRange    = plotRaster['timeRange'],
                     markerSize   = 50,
@@ -142,7 +142,7 @@ for file in os.listdir(base_dir):
             simTools.plotMUApops(
                     sim             = sim,
                     populations     = plotMUA['populations'],
-                    bin_start_times = [3000, 3724, 4448, 5172],
+                    bin_start_times = [2000.0, 2624.5, 3249.0, 3873.5, 4498.0, 5122.5, 5747.0],
                     bin_duration    = plotMUA['stimDur'],
                     save_dir        = save_dir
                 )
