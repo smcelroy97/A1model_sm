@@ -171,7 +171,7 @@ cfg.scaleDensity = 1.0  # Should be 1.0 unless need lower cell density for test 
 
 # Cortical
 cfg.addConn = 1.0
-cfg.wireCortex = 1.0
+cfg.wireCortex = 0
 
 # cfg.EEGain = 0.75
 # cfg.EIGain = 1.5
@@ -296,7 +296,7 @@ cfg.seeds = {'conn': 23451, 'stim': 1, 'loc': 1}
 # ------------------------------------------------------------------------------
 # Background inputs
 # ------------------------------------------------------------------------------
-cfg.addBkgConn = 1
+cfg.addBkgConn = 0
 cfg.noiseBkg = 1.0  # firing rate random noise
 cfg.delayBkg = 5.0  # (ms)
 cfg.startBkg = 0  # start at 0 ms
