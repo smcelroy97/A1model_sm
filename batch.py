@@ -27,6 +27,7 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     #### SET weights####
+
     params['IELayerGain', '6'] = [4.9]
     params['EELayerGain', '6'] = [0.6]
     params['EILayerGain', '4'] = [0.7]
