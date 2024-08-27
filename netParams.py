@@ -1076,4 +1076,5 @@ v38 - Adding in code to modulate NMDA synaptic weight from E --> I populations
 v39 - Changed E --> I cfg.NMDARfactor such that weight is not a list, but instead a single value 
 v40 - added parameterizations from Christoph Metzner for localizing the large L1 sink
 v41 - modifying cochlea to Thal -> A1 for tonotopic gradient, adding functions
+v42 - Changed inhibitory receptor ratios for GABAB and NGF as well as altering the cochlear -> thalamic connections (prob and wieght)
 """
