@@ -100,7 +100,8 @@ cfg.saveCellConns = True
 cfg.analysis['plotRaster'] = {'include': cfg.allpops, 'saveFig': True, 'showFig': False, 'orderInverse': True,
                               'timeRange': [0, cfg.duration], 'figSize': (25, 25), 'plotRates': False,
                               'markerSize': 1}   # Plot a raster
-cfg.analysis['plotConn'] = {'saveFig': True}
+cfg.analysis['plotConn'] = {'includePre': [cfg.allThalPops, cfg.allCorticalPops],
+                            'includePost': [cfg.allThalPops, cfg.allCorticalPops], 'saveFig': True}
 # cfg.analysis['plotSpikeStats'] = {'stats': ['isicv', 'rate'], 'figSize': (6, 12), 'dpi': 300, 'saveFig': True}
 
 # cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4),
