@@ -237,7 +237,7 @@ def setRunCfg(b, type='hpc_sge'):
                     'folder': '/home/smcelroy/A1model_sm/',
                     'script': 'init.py',
                     'mpiCommand': 'mpirun',
-                    'custom': '#SBATCH --constraint="lustre"\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
+                    'custom': '#SBATCH --constraint="lustre"\n#SBATCH --export=ALL\n#SBATCH --partition=shared',
                     'skip': True,
                     'skipCustom': '_data.pkl'}
 
