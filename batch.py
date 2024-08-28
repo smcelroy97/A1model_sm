@@ -247,7 +247,7 @@ def setRunCfg(b, type='hpc_sge'):
                     'partition': 'compute',
                     'walltime': '00:20:00',
                     'nodes': 1,
-                    'coresPerNode': 128,
+                    'coresPerNode': 64,
                     'email': 'scott.mcelroy@downstate.edu',
                     'folder': '/home/smcelroy/A1model_sm/',
                     'script': 'init.py',
