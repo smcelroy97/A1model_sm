@@ -28,11 +28,11 @@ def assr_batch_grid(filename):
 
     #### SET weights####
     params['cochlearThalInput', 'lfnwave'] = [['wav/silence6.5s.wav'], ['wav/1043HzClick_624ISI_2sDelay_6.5s.wav'], ['wav/9kHzClick_624ISI_2sDelay_6.5s.wav']]
-    params['IELayerGain', '6'] = [4.9]
-    params['EELayerGain', '6'] = [0.6]
-    params['EILayerGain', '4'] = [0.7]
-    params['IILayerGain', '4'] = [1.08]
-
+    # params['IELayerGain', '6'] = [4.9]
+    # params['EELayerGain', '6'] = [0.6]
+    # params['EILayerGain', '4'] = [0.7]
+    # params['IILayerGain', '4'] = [1.08]
+    params['cochlearThalInput', 'wieghtECore'] = [0.25, 0.3, 0.35]
     # --------------------------------------------------------
     
     # grouped params
@@ -281,7 +281,7 @@ if __name__ == '__main__':
     # setRunCfg(b, 'hpc_slurm_Expanse')
     # b.run() # run batch
 
-    b.batchLabel = 'SpontOnOffFreqTest0827'
+    b.batchLabel = 'InputTune0828'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
