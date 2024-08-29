@@ -281,7 +281,7 @@ if __name__ == '__main__':
     # setRunCfg(b, 'hpc_slurm_Expanse')
     # b.run() # run batch
 
-    b.batchLabel = 'SpontOnOffFreqTest0827'
+    b.batchLabel = 'MatrixFactorTest0829'
     b.saveFolder = 'data/'+b.batchLabel
 
     setRunCfg(b, 'hpc_sge')
