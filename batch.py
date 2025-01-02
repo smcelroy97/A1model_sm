@@ -27,12 +27,12 @@ def assr_batch_grid(filename):
     cfgLoad2 = cfgLoad
 
     #### SET weights####
-
-    params['IELayerGain', '6'] = [4.9]
-    params['EELayerGain', '6'] = [0.6]
-    params['EILayerGain', '4'] = [0.7]
-    params['IILayerGain', '4'] = [1.08]
-
+    params['cochlearThalInput', 'lfnwave'] = [['wav/silence6.5s.wav'], ['wav/1043HzClick_624ISI_2sDelay_6.5s.wav']] #, ['wav/9kHzClick_624ISI_2sDelay_6.5s.wav']]
+    # params['IELayerGain', '6'] = [4.9]
+    # params['EELayerGain', '6'] = [0.6]
+    # params['EILayerGain', '4'] = [0.7]
+    # params['IILayerGain', '4'] = [1.08]
+    params['cochlearThalInput', 'wieghtECore'] = [0.4, 0.5, 0.6, 0.7]
     # --------------------------------------------------------
     
     # grouped params
@@ -230,14 +230,14 @@ def setRunCfg(b, type='hpc_sge'):
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
                     'partition': 'shared',
-                    'walltime': '2:00:00',
+                    'walltime': '00:20:00',
                     'nodes': 1,
                     'coresPerNode': 64,
                     'email': 'scott.mcelroy@downstate.edu',
                     'folder': '/home/smcelroy/A1model_sm/',
                     'script': 'init.py',
                     'mpiCommand': 'mpirun',
-                    'custom': '#SBATCH --constraint="lustre"\n#SBATCH --export=ALL\n#SBATCH --partition=compute',
+                    'custom': '#SBATCH --constraint="lustre"\n#SBATCH --export=ALL\n#SBATCH --partition=shared',
                     'skip': True,
                     'skipCustom': '_data.pkl'}
 
@@ -245,9 +245,9 @@ def setRunCfg(b, type='hpc_sge'):
         b.runCfg = {'type': 'hpc_slurm',
                     'allocation': 'TG-IBN140002',
                     'partition': 'compute',
-                    'walltime': '1:40:00',
+                    'walltime': '00:20:00',
                     'nodes': 1,
-                    'coresPerNode': 128,
+                    'coresPerNode': 64,
                     'email': 'scott.mcelroy@downstate.edu',
                     'folder': '/home/smcelroy/A1model_sm/',
                     'script': 'init.py',
@@ -281,8 +281,8 @@ if __name__ == '__main__':
     # setRunCfg(b, 'hpc_slurm_Expanse')
     # b.run() # run batch
 
-    b.batchLabel = 'MatrixFactorTest0829'
+    b.batchLabel = 'InputTune0828A'
     b.saveFolder = 'data/'+b.batchLabel
 
-    setRunCfg(b, 'hpc_sge')
+    setRunCfg(b, 'hpc_slurm_Expanse')
     b.run() # run batch

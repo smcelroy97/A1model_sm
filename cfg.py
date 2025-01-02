@@ -100,8 +100,8 @@ cfg.saveCellConns = False
 cfg.analysis['plotRaster'] = {'include': cfg.allThalPops, 'saveFig': True, 'showFig': False, 'orderInverse': True,
                               'timeRange': [0, cfg.duration], 'figSize': (25, 25), 'plotRates': False,
                               'markerSize': 1}   # Plot a raster
-cfg.analysis['plotConn'] = {'includePre': [cfg.allThalPops, cfg.allCorticalPops],
-                            'includePost': [cfg.allThalPops, cfg.allCorticalPops], 'saveFig': True}
+# cfg.analysis['plotConn'] = {'includePre': [cfg.allThalPops, cfg.allCorticalPops],
+#                             'includePost': [cfg.allThalPops, cfg.allCorticalPops], 'saveFig': True}
 # cfg.analysis['plotSpikeStats'] = {'stats': ['isicv', 'rate'], 'figSize': (6, 12), 'dpi': 300, 'saveFig': True}
 
 # cfg.analysis['plotLFP'] = {'plots': ['timeSeries'], 'electrodes': [10], 'maxFreq': 80, 'figSize': (8,4),
@@ -171,7 +171,7 @@ cfg.scaleDensity = 1.0  # Should be 1.0 unless need lower cell density for test 
 
 # Cortical
 cfg.addConn = 1.0
-cfg.wireCortex = 1.0
+cfg.wireCortex = 0
 
 # cfg.EEGain = 0.75
 # cfg.EIGain = 1.5
@@ -211,8 +211,8 @@ cfg.IECellTypeGain = {'PV': 1.0, 'SOM': 1.0, 'VIP': 1.0, 'NGF': 1.0}
 
 # Thalamic
 cfg.addIntraThalamicConn = 1.0
-cfg.addCorticoThalamicConn = 1.0
-cfg.addThalamoCorticalConn = 1.0
+cfg.addCorticoThalamicConn = 0
+cfg.addThalamoCorticalConn = 0
 
 cfg.thalamoCorticalGain = 1.0
 cfg.intraThalamicGain = 1.0
@@ -298,7 +298,7 @@ cfg.seeds = {'conn': 23451, 'stim': 1, 'loc': 1}
 # ------------------------------------------------------------------------------
 # Background inputs
 # ------------------------------------------------------------------------------
-cfg.addBkgConn = 1
+cfg.addBkgConn = 1.0
 cfg.noiseBkg = 1.0  # firing rate random noise
 cfg.delayBkg = 5.0  # (ms)
 cfg.startBkg = 0  # start at 0 ms
